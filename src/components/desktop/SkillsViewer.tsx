@@ -2,29 +2,18 @@
 
 import { Cpu, Database, Layout, Terminal, Wrench } from "lucide-react";
 
+import { skillGroups } from "@/data/skills";
+
 export function SkillsViewer() {
-  const skillGroups = [
-    {
-      title: "Languages",
-      icon: <Terminal className="w-8 h-8 text-[#2866CC]" />,
-      skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "Python", "HTML", "Latex"]
-    },
-    {
-      title: "Frontend",
-      icon: <Layout className="w-8 h-8 text-[#2866CC]" />,
-      skills: ["React", "Next.js", "CSS", "SCSS", "Tailwind CSS", "DaisyUI", "Bootstrap", "Redux"]
-    },
-    {
-      title: "Backend & DB",
-      icon: <Database className="w-8 h-8 text-[#2866CC]" />,
-      skills: ["Node.js", "Express.js", "Sequelize", "SQL", "MySQL", "MongoDB", "Firebase"]
-    },
-    {
-      title: "Tools & Others",
-      icon: <Wrench className="w-8 h-8 text-[#2866CC]" />,
-      skills: ["Git", "GitHub", "Azure DevOps", "Notion", "VS Code", "Postman"]
+  const getIcon = (title: string) => {
+    switch (title) {
+      case "Languages": return <Terminal className="w-8 h-8 text-[#2866CC]" />;
+      case "Frontend": return <Layout className="w-8 h-8 text-[#2866CC]" />;
+      case "Backend & DB": return <Database className="w-8 h-8 text-[#2866CC]" />;
+      case "Tools & Others": return <Wrench className="w-8 h-8 text-[#2866CC]" />;
+      default: return <Cpu className="w-8 h-8 text-[#2866CC]" />;
     }
-  ];
+  };
 
   return (
     <div className="flex flex-col h-full bg-white font-tahoma text-xs">
@@ -32,7 +21,7 @@ export function SkillsViewer() {
       <div className="bg-[#ECE9D8] border-b border-[#D6D3CE] p-2 flex items-center gap-2">
         <div className="bg-white border border-[#7F9DB9] px-2 py-1 w-full flex items-center gap-2">
           <Cpu className="w-4 h-4 text-gray-500" />
-          <span>System Skills Configuration</span>
+          <span>Skills Configuration</span>
         </div>
       </div>
 
@@ -53,11 +42,11 @@ export function SkillsViewer() {
                   <div key={skill} className="flex items-center gap-2 group cursor-default">
                     {/* XP Drive Icon Look-alike */}
                     <div className="w-8 h-8 shrink-0">
-                       {group.icon}
+                       {getIcon(group.title)}
                     </div>
                     <div className="flex flex-col">
                       <span className="font-bold text-black group-hover:underline">{skill}</span>
-                      <span className="text-[10px] text-gray-500">Local Disk</span>
+                      {/* <span className="text-[10px] text-gray-500">Local Disk</span> */}
                     </div>
                   </div>
                 ))}

@@ -1,11 +1,12 @@
 "use client";
 
 import {
+  Briefcase,
+  Cpu,
   Download,
-  Github,
   HelpCircle,
-  Linkedin,
   LogOut,
+  Mail,
   PlayCircle,
   Settings,
   User
@@ -50,16 +51,22 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
       description: "View resume & info"
     },
     { 
-      label: "GitHub", 
-      icon: Github, 
-      action: "github",
-      description: "Visit my repositories"
+      label: "My Projects", 
+      icon: Briefcase, 
+      action: "projects",
+      description: "Browse my work"
     },
     { 
-      label: "LinkedIn", 
-      icon: Linkedin, 
-      action: "linkedin",
-      description: "Connect with me"
+      label: "My Skills", 
+      icon: Cpu, 
+      action: "skills",
+      description: "Technical expertise"
+    },
+    { 
+      label: "Contact Me", 
+      icon: Mail, 
+      action: "contact",
+      description: "Get in touch"
     },
     { 
       label: "Download Resume", 
@@ -93,7 +100,8 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
         }}
       >
         <div className="h-10 w-10 rounded border-2 border-white/40 bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-md overflow-hidden">
-          <User className="h-7 w-7 text-[#003399]" />
+          {/* <User className="h-7 w-7 text-[#003399]" /> */}
+          <img src="/pro.jpg" alt="User" className="w-full h-full object-cover" />
         </div>
         <div className="flex-1">
           <p className="font-bold text-sm drop-shadow-md">Mahmudul Ahsan</p>

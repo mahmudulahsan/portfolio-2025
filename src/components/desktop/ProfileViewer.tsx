@@ -1,7 +1,13 @@
 "use client";
 
+import { achievements } from "@/data/achievements";
+import { contactInfo } from "@/data/contact";
+import { experiences } from "@/data/experience";
+import { projects } from "@/data/projects";
+import { researchItems } from "@/data/research";
+import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/utils";
-import { Briefcase, Code, Github, GraduationCap, Linkedin, Mail, MapPin, Phone, User } from "lucide-react";
+import { Briefcase, Code, Github, GraduationCap, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import { useState } from "react";
 
 interface ProfileViewerProps {
@@ -25,20 +31,21 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
       <div className="flex items-center gap-4 p-3 pb-0">
         <div className="p-1 bg-white border border-[#ACA899] shadow-inner shrink-0">
           <div className="h-16 w-16 bg-gradient-to-br from-[#E3E3E3] to-[#C0C0C0] flex items-center justify-center border border-[#8E8E8E]">
-            <User className="h-10 w-10 text-[#808080]" />
+            {/* <User className="h-10 w-10 text-[#808080]" /> */}
+            <img src="/pro.jpg" alt="User" className="w-full h-full object-cover" />
           </div>
         </div>
         <div>
           <h2 className="font-bold text-sm text-black">Mahmudul Ahsan</h2>
-          <p className="text-[#555555]">Jr. Software Engineer</p>
+          <p className="text-[#555555]">Software Engineer</p>
           <div className="flex items-center gap-3 mt-1 text-[#555555]">
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
-              <span>Dhaka, Bangladesh</span>
+              <span>{contactInfo.address}</span>
             </div>
             <div className="flex items-center gap-1">
               <Phone className="h-3 w-3" />
-              <span>+8801521561664</span>
+              <span>{contactInfo.phone}</span>
             </div>
           </div>
         </div>
@@ -91,18 +98,19 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
             <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
               <legend className="px-1 text-[#003399] font-medium">Contact & Profiles</legend>
               <div className="grid grid-cols-2 gap-2">
-                <a href="mailto:mamahi1998@gmail.com" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <Mail className="h-3.5 w-3.5" /> mamahi1998@gmail.com
-                </a>
-                <a href="https://www.linkedin.com/in/ahsanmahmudul/" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <Linkedin className="h-3.5 w-3.5" /> LinkedIn Profile
-                </a>
-                <a href="https://github.com/mahmudulahsan" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <Github className="h-3.5 w-3.5" /> GitHub Profile
-                </a>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Code className="h-3.5 w-3.5" /> Problem Solving Profile
-                </div>
+                {contactInfo.links.map((link) => {
+                   let Icon = Mail;
+                   if (link.id === 'linkedin') Icon = Linkedin;
+                   if (link.id === 'github') Icon = Github;
+                   if (link.id === 'codeforces') Icon = Code;
+                   if (link.id === 'youtube') Icon = Youtube;
+
+                   return (
+                     <a key={link.id} href={link.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
+                       <Icon className="h-3.5 w-3.5" /> {link.value}
+                     </a>
+                   );
+                })}
               </div>
             </fieldset>
           </div>
@@ -110,67 +118,58 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
 
         {activeTab === "experience" && (
           <div className="space-y-4">
-            <div className="flex gap-3">
-              <Briefcase className="h-5 w-5 text-[#003399] mt-1 shrink-0" />
-              <div>
-                <h3 className="font-bold text-black text-sm">MyMedicalHub International</h3>
-                <p className="text-[#003399] font-medium">Jr. Software Engineer</p>
-                <p className="text-[#555] mb-2">Jul 2025 - Present</p>
-                <ul className="list-disc pl-4 space-y-1 text-black marker:text-[#555]">
-                  <li>Contributed to building AI-integrated web applications using component-based design.</li>
-                  <li>Integrated automated user interactions via voice and worked on human annotation modules.</li>
-                  <li>Modernized legacy codebases into newer, efficient design technologies.</li>
-                </ul>
+            {experiences.map((exp, index) => (
+              <div key={index}>
+                <div className="flex gap-3">
+                  <Briefcase className="h-5 w-5 text-[#003399] mt-1 shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-black text-sm">{exp.company}</h3>
+                    <p className="text-[#003399] font-medium">{exp.role}</p>
+                    <p className="text-[#555] mb-2">{exp.period}</p>
+                    <ul className="list-disc pl-4 space-y-1 text-black marker:text-[#555]">
+                      {exp.points.map((point, i) => (
+                        <li key={i}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                {index < experiences.length - 1 && (
+                  <div className="h-[1px] bg-[#ECE9D8] w-full mt-4" />
+                )}
               </div>
-            </div>
-
-            <div className="h-[1px] bg-[#ECE9D8] w-full" />
-
-            <div className="flex gap-3">
-              <Briefcase className="h-5 w-5 text-[#003399] mt-1 shrink-0" />
-              <div>
-                <h3 className="font-bold text-black text-sm">Vivasoft Limited</h3>
-                <p className="text-[#003399] font-medium">Front-end Intern</p>
-                <p className="text-[#555] mb-2">Oct 2023 - Mar 2024</p>
-                <ul className="list-disc pl-4 space-y-1 text-black marker:text-[#555]">
-                  <li>Contributed to front-end development of the Visitor Management System.</li>
-                  <li>Developed optimized UI components using React.js and Tailwind CSS.</li>
-                  <li>Collaborated in an Agile team with Git and version control best practices.</li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
         )}
 
         {activeTab === "projects" && (
           <div className="space-y-4">
-            {[
-              {
-                name: "ScribeLogs - AI-Powered Chrome Extension",
-                tech: "React, Node.js, Express.js, Firebase, TailwindCSS",
-                desc: "Chrome extension that summarizes YouTube videos using OpenAI API. Optimized costs by storing summaries in Firestore."
-              },
-              {
-                name: "Hospital Billing Management",
-                tech: "React, Express.js, Sequelize (MySQL), Firebase Auth",
-                desc: "Hospital management app with localStorage caching and dynamic reports for admin insights."
-              },
-              {
-                name: "LogicLifters - Course Management Site",
-                tech: "React, Firebase, TailwindCSS",
-                desc: "Dynamic course management website with admin panel for content management."
-              },
-              {
-                name: "E-Dars - Quran & Islamic Course Site",
-                tech: "React, Firebase, TailwindCSS, DaisyUI",
-                desc: "Quran learning platform with audio playback, quizzes, and real-time leaderboard."
-              }
-            ].map((project, i) => (
-              <div key={i} className="border border-[#D0D0BF] p-2 rounded-sm bg-[#FBFBFB]">
-                <h3 className="font-bold text-[#003399]">{project.name}</h3>
-                <p className="text-[#555] text-[11px] mb-1 italic">{project.tech}</p>
-                <p className="text-black">{project.desc}</p>
-              </div>
+            {(["Real Life Projects", "Hobby Projects", "Landing Pages"] as const).map((category) => (
+              <fieldset key={category} className="border border-[#D0D0BF] p-3 rounded-sm relative">
+                <legend className="px-1 text-[#003399] font-medium">{category}</legend>
+                <div className="space-y-3">
+                  {projects
+                    .filter((p) => p.category === category)
+                    .map((project) => (
+                      <div key={project.id} className="border-b border-[#D0D0BF] last:border-0 pb-2 last:pb-0">
+                        <h3 className="font-bold text-[#003399] text-sm flex items-center gap-2">
+                          {project.title}
+                          {project.link && (
+                            <a 
+                              href={project.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-xs font-normal text-blue-600 hover:underline"
+                            >
+                              [Visit]
+                            </a>
+                          )}
+                        </h3>
+                        <p className="text-[#555] text-[10px] mb-0.5 italic">{project.tech}</p>
+                        <p className="text-black leading-tight">{project.description}</p>
+                      </div>
+                    ))}
+                </div>
+              </fieldset>
             ))}
           </div>
         )}
@@ -180,34 +179,36 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
             <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
               <legend className="px-1 text-[#003399] font-medium">Technical Skills</legend>
               <div className="space-y-3">
-                <div>
-                  <span className="font-bold text-black">Languages:</span>
-                  <p className="text-black">C, C++, Java, JavaScript, TypeScript, Python, HTML, Latex</p>
-                </div>
-                <div>
-                  <span className="font-bold text-black">Frontend:</span>
-                  <p className="text-black">React, Next.js, CSS, SCSS, Tailwind CSS, DaisyUI, Bootstrap, Redux</p>
-                </div>
-                <div>
-                  <span className="font-bold text-black">Backend & DB:</span>
-                  <p className="text-black">Node.js, Express.js, Sequelize, SQL, MySQL, MongoDB, Firebase</p>
-                </div>
-                <div>
-                  <span className="font-bold text-black">Tools:</span>
-                  <p className="text-black">Git, GitHub, Azure DevOps, Notion</p>
-                </div>
+                {skillGroups.map((group) => (
+                  <div key={group.title}>
+                    <span className="font-bold text-black">{group.title}:</span>
+                    <p className="text-black">{group.skills.join(", ")}</p>
+                  </div>
+                ))}
               </div>
             </fieldset>
 
             <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
               <legend className="px-1 text-[#003399] font-medium">Certifications & Achievements</legend>
               <ul className="list-disc pl-4 space-y-1 text-black">
-                <li>
-                  <span className="font-bold">ITEE FE Level 2 (2024):</span> National Rank 5th
-                </li>
-                <li>
-                  <span className="font-bold">RUET Day Innovation Idea Contest (2023):</span> 3rd Place
-                </li>
+                {achievements.map((achievement, index) => (
+                  <li key={index}>
+                    <span className="font-bold">{achievement.title}:</span> {achievement.description}
+                    {achievement.link && (
+                      <>
+                        {" - "}
+                        <a 
+                          href={achievement.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          [View Certificate]
+                        </a>
+                      </>
+                    )}
+                  </li>
+                ))}
               </ul>
             </fieldset>
           </div>
@@ -215,21 +216,13 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
 
         {activeTab === "research" && (
           <div className="space-y-4">
-            <div className="border-l-2 border-[#003399] pl-3">
-              <h3 className="font-bold text-black">Conference Paper | NCIM 2025</h3>
-              <p className="text-[#003399] font-medium italic">A Lightweight Framework for Facial Emotion Recognition</p>
-              <p className="text-black mt-1">
-                Developed a multimodal deep learning model for facial expression recognition, improving accuracy on challenging emotions with up to 94% accuracy.
-              </p>
-            </div>
-
-            <div className="border-l-2 border-[#003399] pl-3">
-              <h3 className="font-bold text-black">Undergraduate Thesis</h3>
-              <p className="text-[#003399] font-medium italic">Optimizing Intrusion Detection in Banking Networks</p>
-              <p className="text-black mt-1">
-                Built ML models for anomaly detection and implemented SHAP-based Explainable AI techniques for transparency in threat detection.
-              </p>
-            </div>
+            {researchItems.map((item, index) => (
+              <div key={index} className="border-l-2 border-[#003399] pl-3">
+                <h3 className="font-bold text-black">{item.title}</h3>
+                <p className="text-[#003399] font-medium italic">{item.subtitle}</p>
+                <p className="text-black mt-1">{item.description}</p>
+              </div>
+            ))}
           </div>
         )}
       </div>

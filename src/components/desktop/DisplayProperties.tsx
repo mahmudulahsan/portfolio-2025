@@ -1,6 +1,8 @@
 "use client";
 
 
+import { useState } from "react";
+
 interface DisplayPropertiesProps {
   onClose: () => void;
   onContact: () => void;
@@ -11,6 +13,19 @@ interface DisplayPropertiesProps {
 }
 
 export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpaper, setWallpaper }: DisplayPropertiesProps) {
+  const [pendingTheme, setPendingTheme] = useState(theme);
+  const [pendingWallpaper, setPendingWallpaper] = useState(wallpaper);
+
+  const handleApply = () => {
+    setTheme(pendingTheme);
+    setWallpaper(pendingWallpaper);
+  };
+
+  const handleOk = () => {
+    handleApply();
+    onClose();
+  };
+
   return (
     <div className="flex flex-col h-full bg-[#ECE9D8] font-tahoma text-[11px] select-none">
       {/* Tabs */}
@@ -34,7 +49,7 @@ export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpap
           <div className="w-32 h-28 bg-[#ECE9D8] border border-gray-500 rounded-t-xl relative flex items-center justify-center">
              <div className="w-28 h-20 bg-[#3A6EA5] border border-gray-600 relative overflow-hidden">
                 {/* Wallpaper Preview */}
-                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${wallpaper}')` }} />
+                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${pendingWallpaper}')` }} />
              </div>
              {/* Stand */}
              <div className="absolute -bottom-4 w-12 h-4 bg-[#ECE9D8] border border-gray-500 border-t-0 rounded-b" />
@@ -48,8 +63,8 @@ export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpap
            <div className="flex flex-col gap-2 flex-1">
               <span className="text-black">Desktop background</span>
               <select 
-                value={wallpaper}
-                onChange={(e) => setWallpaper(e.target.value)}
+                value={pendingWallpaper}
+                onChange={(e) => setPendingWallpaper(e.target.value)}
                 className="w-full p-1 border border-gray-400 text-xs"
               >
                 <option value="/wallpaper.jpeg">Bliss (Default)</option>
@@ -67,8 +82,8 @@ export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpap
            <div className="flex flex-col gap-2 flex-1">
               <span className="text-black">Color scheme</span>
               <select 
-                value={theme}
-                onChange={(e) => setTheme(e.target.value as any)}
+                value={pendingTheme}
+                onChange={(e) => setPendingTheme(e.target.value as any)}
                 className="w-full p-1 border border-gray-400 text-xs"
               >
                  <option value="Blue">Default (Blue)</option>
@@ -96,13 +111,13 @@ export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpap
 
       {/* Footer Buttons */}
       <div className="flex justify-end gap-2 px-4 pb-3">
-         <button onClick={onClose} className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black">
+         <button onClick={handleOk} className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black">
            OK
          </button>
          <button onClick={onClose} className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black">
            Cancel
          </button>
-         <button onClick={onClose} className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black">
+         <button onClick={handleApply} className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black">
            Apply
          </button>
       </div>

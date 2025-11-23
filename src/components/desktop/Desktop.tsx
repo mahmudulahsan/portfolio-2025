@@ -1,12 +1,14 @@
 "use client";
 
-import { FileText, Mail, Monitor } from "lucide-react";
+import { contactInfo } from "@/data/contact";
+import { Mail } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BootScreen } from "./BootScreen";
 import { ContextMenu } from "./ContextMenu";
 import { DesktopIcon } from "./DesktopIcon";
 import { DisplayProperties } from "./DisplayProperties";
 import { FileDownloadDialog } from "./FileDownloadDialog";
+import { InternetExplorer } from "./InternetExplorer";
 import { LockScreen } from "./LockScreen";
 import { ProfileViewer } from "./ProfileViewer";
 import { ProjectsViewer } from "./ProjectsViewer";
@@ -32,6 +34,7 @@ export function Desktop() {
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isReadmeOpen, setIsReadmeOpen] = useState(false);
+  const [isInternetExplorerOpen, setIsInternetExplorerOpen] = useState(false);
   
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
@@ -49,9 +52,25 @@ export function Desktop() {
   const [isContactMinimized, setIsContactMinimized] = useState(false);
   const [isReadmeMinimized, setIsReadmeMinimized] = useState(false);
   const [isRunMinimized, setIsRunMinimized] = useState(false);
+  const [isInternetExplorerMinimized, setIsInternetExplorerMinimized] = useState(false);
 
   const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver">("Blue");
   const [wallpaper, setWallpaper] = useState("/wallpaper.jpeg");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "Blue" | "Olive" | "Silver";
+    const savedWallpaper = localStorage.getItem("wallpaper");
+    if (savedTheme) setTheme(savedTheme);
+    if (savedWallpaper) setWallpaper(savedWallpaper);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("wallpaper", wallpaper);
+  }, [wallpaper]);
 
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [bgColor, setBgColor] = useState("#5A8FD3");
@@ -98,6 +117,10 @@ export function Desktop() {
       case "run":
         setIsRunOpen(true);
         setIsRunMinimized(false);
+        break;
+      case "internet":
+        setIsInternetExplorerOpen(true);
+        setIsInternetExplorerMinimized(false);
         break;
       default:
         break;
@@ -148,6 +171,22 @@ export function Desktop() {
         setIsLocked(true);
         localStorage.setItem("isLocked", "true");
         break;
+      case "help":
+        setIsReadmeOpen(true);
+        setIsReadmeMinimized(false);
+        break;
+      case "internet":
+        setIsInternetExplorerOpen(true);
+        setIsInternetExplorerMinimized(false);
+        break;
+      case "skills":
+        setIsSkillsOpen(true);
+        setIsSkillsMinimized(false);
+        break;
+      case "contact":
+        setIsContactOpen(true);
+        setIsContactMinimized(false);
+        break;
       default:
         break;
     }
@@ -162,6 +201,7 @@ export function Desktop() {
     { id: "run", title: "Run", isMinimized: isRunMinimized, onRestore: () => setIsRunMinimized(false) },
     { id: "properties", title: "System Properties", isMinimized: isPropertiesMinimized, onRestore: () => setIsPropertiesMinimized(false) },
     { id: "settings", title: "Display Settings", isMinimized: isSettingsMinimized, onRestore: () => setIsSettingsMinimized(false) },
+    { id: "internet", title: "Mahmudul's Tech Blog - Microsoft Internet Explorer", isMinimized: isInternetExplorerMinimized, onRestore: () => setIsInternetExplorerMinimized(false) },
   ].filter(w => 
     (w.id === "ahsan.js" && isAhsanWindowOpen) ||
     (w.id === "projects" && isProjectsOpen) ||
@@ -170,7 +210,8 @@ export function Desktop() {
     (w.id === "readme" && isReadmeOpen) ||
     (w.id === "run" && isRunOpen) ||
     (w.id === "properties" && isPropertiesOpen) ||
-    (w.id === "settings" && isSettingsOpen)
+    (w.id === "settings" && isSettingsOpen) ||
+    (w.id === "internet" && isInternetExplorerOpen)
   );
 
   if (isBooting) {
@@ -202,41 +243,66 @@ export function Desktop() {
           <DesktopIcon
             label="My Skills"
             selected={selectedIcon === "skills"}
-            icon={<Monitor className="h-full w-full text-[#2866CC] drop-shadow-md" />}
             onClick={() => handleIconClick("skills")}
             onDoubleClick={() => handleIconDoubleClick("skills")}
+            icon={<img src="/skills.ico" alt="Skills" className="h-full w-full object-contain drop-shadow-md" />}
           />
           <DesktopIcon
             label="My Projects"
             selected={selectedIcon === "projects"}
-            icon={<img src="/project.ico" alt="Projects" className="h-full w-full object-contain drop-shadow-md" />}
             onClick={() => handleIconClick("projects")}
             onDoubleClick={() => handleIconDoubleClick("projects")}
+            icon={<img src="/project.ico" alt="Projects" className="h-full w-full object-contain drop-shadow-md" />}
           />
           <DesktopIcon
-            label="ahsan.js"
+            label="My Portfolio"
             selected={selectedIcon === "ahsan.js"}
-            icon={<img src="/folder.ico" alt="Folder" className="h-full w-full object-contain drop-shadow-md" />}
             onClick={() => handleIconClick("ahsan.js")}
             onDoubleClick={() => handleIconDoubleClick("ahsan.js")}
+            icon={<img src="/mycomputer.ico" alt="My Computer" className="h-full w-full object-contain drop-shadow-md" />}
           />
           <DesktopIcon
             label="Contact Me"
             selected={selectedIcon === "contact"}
-            icon={<img src="/globe.svg" alt="Contact" className="h-full w-full object-contain drop-shadow-md" />}
             onClick={() => handleIconClick("contact")}
             onDoubleClick={() => handleIconDoubleClick("contact")}
+            icon={<img src="/contact.ico" alt="Contact" className="h-full w-full object-contain drop-shadow-md" />}
           />
           <DesktopIcon
             label="Read Me.txt"
             selected={selectedIcon === "readme"}
-            icon={<FileText className="h-full w-full text-white drop-shadow-md fill-white" />}
             onClick={() => handleIconClick("readme")}
             onDoubleClick={() => handleIconDoubleClick("readme")}
+            icon={<img src="/readme.ico" alt="Readme" className="h-full w-full object-contain drop-shadow-md" />}
           />
-        </div>
+          <DesktopIcon
+            label="Internet Explorer"
+            selected={selectedIcon === "internet"}
+            onClick={() => handleIconClick("internet")}
+            onDoubleClick={() => handleIconDoubleClick("internet")}
+            icon={<img src="/ie.ico" alt="Internet Explorer" className="h-full w-full object-contain drop-shadow-md" />}
+          />
+      </div>
 
-        {/* Windows */}
+      {/* Windows */}
+      <div className="absolute inset-0 pointer-events-none [&>*]:pointer-events-auto">
+        <Window
+          title="Mahmudul's Tech Blog - Microsoft Internet Explorer"
+          isOpen={isInternetExplorerOpen}
+          isMinimized={isInternetExplorerMinimized}
+          onClose={() => {
+            setIsInternetExplorerOpen(false);
+            setIsInternetExplorerMinimized(false);
+          }}
+          onMinimize={() => setIsInternetExplorerMinimized(true)}
+          defaultPosition={{ x: 50, y: 50 }}
+          width="800px"
+          height="600px"
+          theme={theme}
+        >
+          <InternetExplorer />
+        </Window>
+
         <Window
           title="ahsan.js - Profile Viewer"
           isOpen={isAhsanWindowOpen}
@@ -247,6 +313,8 @@ export function Desktop() {
           }}
           onMinimize={() => setIsAhsanMinimized(true)}
           defaultPosition={{ x: 100, y: 50 }}
+          width="500px"
+          height="600px"
           theme={theme}
         >
           <ProfileViewer onClose={() => {
@@ -265,6 +333,8 @@ export function Desktop() {
           }}
           onMinimize={() => setIsProjectsMinimized(true)}
           defaultPosition={{ x: 150, y: 80 }}
+          width="900px"
+          height="700px"
           theme={theme}
         >
           <ProjectsViewer />
@@ -280,6 +350,8 @@ export function Desktop() {
           }}
           onMinimize={() => setIsSkillsMinimized(true)}
           defaultPosition={{ x: 200, y: 100 }}
+          width="600px"
+          height="500px"
           theme={theme}
         >
           <SkillsViewer />
@@ -296,6 +368,7 @@ export function Desktop() {
           onMinimize={() => setIsContactMinimized(true)}
           defaultPosition={{ x: 250, y: 120 }}
           width="400px"
+          height="300px"
           theme={theme}
         >
           <div className="p-4 bg-white h-full font-tahoma">
@@ -307,18 +380,21 @@ export function Desktop() {
               </div>
             </div>
             <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#003399]" />
-                <a href="mailto:mamahi1998@gmail.com" className="text-blue-600 hover:underline">mamahi1998@gmail.com</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold w-4 text-center">in</span>
-                <a href="https://www.linkedin.com/in/ahsanmahmudul/" target="_blank" className="text-blue-600 hover:underline">LinkedIn Profile</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold w-4 text-center">GH</span>
-                <a href="https://github.com/mahmudulahsan" target="_blank" className="text-blue-600 hover:underline">GitHub Profile</a>
-              </div>
+              {contactInfo.links.map((link) => (
+                <div key={link.id} className="flex items-center gap-2">
+                  {link.id === 'email' ? (
+                    <Mail className="w-4 h-4 text-[#003399]" />
+                  ) : (
+                    <span className="font-bold w-4 text-center text-[#003399] text-xs">
+                      {link.id === 'linkedin' ? 'IN' : 
+                       link.id === 'github' ? 'GH' : 
+                       link.id === 'codeforces' ? 'CF' : 
+                       link.id === 'youtube' ? 'YT' : '..'}
+                    </span>
+                  )}
+                  <a href={link.href} target="_blank" className="text-blue-600 hover:underline">{link.value}</a>
+                </div>
+              ))}
               <div className="mt-4 p-2 bg-[#FFFFE1] border border-[#ACA899] text-xs">
                 <p>Feel free to reach out for collaborations or opportunities!</p>
               </div>
@@ -429,6 +505,7 @@ Enjoy your stay!
             setIsRunMinimized(false);
           }}
           onMinimize={() => setIsRunMinimized(true)}
+          width="350px"
           theme={theme}
         >
           <div className="p-4 space-y-4 bg-[#ECE9D8] font-tahoma">
@@ -436,7 +513,7 @@ Enjoy your stay!
               <div className="shrink-0">
                  <img src="/run.png" alt="Run" className="w-8 h-8" />
               </div>
-              <p className="text-xs text-black leading-relaxed">Type the name of a program, folder, document, or Internet resource, and Portfolio OS will open it for you.</p>
+              <p className="text-xs text-black leading-relaxed">Type any link, Portfolio OS will open it for you.</p>
             </div>
             <div className="flex gap-2 items-center">
               <label className="text-xs text-black">Open:</label>
@@ -455,7 +532,7 @@ Enjoy your stay!
                 className="w-full border border-[#7F9DB9] px-2 py-1 text-xs outline-none focus:border-blue-500"
               />
             </div>
-            <div className="flex gap-2 justify-end pt-2">
+            <div className="flex justify-end gap-2 pt-4">
               <button 
                 onClick={() => {
                   if (runCommand) {
@@ -463,49 +540,48 @@ Enjoy your stay!
                     setIsRunOpen(false);
                   }
                 }}
-                className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black text-xs"
+                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs"
               >
                 OK
               </button>
-              <button
-                onClick={() => {
-                  setIsRunOpen(false);
-                  setIsRunMinimized(false);
-                }}
-                className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black text-xs"
+              <button 
+                onClick={() => setIsRunOpen(false)}
+                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs"
               >
                 Cancel
-              </button>
-              <button className="px-4 py-1 min-w-[70px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black text-xs">
-                Browse...
               </button>
             </div>
           </div>
         </Window>
 
-      <FileDownloadDialog
-        isOpen={isDownloadOpen}
-        onClose={() => setIsDownloadOpen(false)}
-        fileName="Mahmudul_Ahsan_Resume.pdf"
-        fileUrl="/Mahmudul_Ahsan_Resume.pdf"
-      />
-
-      {/* Context Menu */}
-      {contextMenu && (
-        <ContextMenu
-          x={contextMenu.x}
-          y={contextMenu.y}
-          onClose={closeContextMenu}
-          items={[
-            { label: "Arrange Icons By", disabled: true },
-            { label: "Refresh", action: () => window.location.reload() },
-            { separator: true, label: "" },
-            { label: "New", disabled: true },
-            { separator: true, label: "" },
-            { label: "Properties", action: () => handleMenuAction("properties") },
-          ]}
+        <FileDownloadDialog
+          isOpen={isDownloadOpen}
+          onClose={() => setIsDownloadOpen(false)}
+          fileName="Mahmudul_Ahsan_Resume.pdf"
+          fileUrl="/Mahmudul_Ahsan_Resume.pdf"
         />
-      )}
+
+        {/* Context Menu */}
+        {contextMenu && (
+          <ContextMenu
+            x={contextMenu.x}
+            y={contextMenu.y}
+            onClose={closeContextMenu}
+            items={[
+              { label: "Arrange Icons By", disabled: true },
+              { label: "Refresh", action: () => window.location.reload() },
+              { separator: true, label: "" },
+              { label: "New", disabled: true },
+              { separator: true, label: "" },
+              { label: "Properties", action: () => handleMenuAction("properties") },
+            ]}
+          />
+        )}
+
+      {/* Copyright Text */}
+      <div className="absolute bottom-10 right-4 text-white/90 font-tahoma text-sm drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] select-none pointer-events-none z-0">
+        © Mahmudul Ahsan | Built with a cup of nostalgia
+      </div>
 
       <Taskbar 
         onSettingsClick={() => setIsSettingsOpen(true)} 
@@ -513,6 +589,7 @@ Enjoy your stay!
         minimizedWindows={minimizedWindows}
         theme={theme}
       />
+    </div>
     </div>
   );
 }

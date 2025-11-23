@@ -109,6 +109,19 @@ export function Taskbar({
         </button>
         <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
         
+        {/* Quick Launch */}
+        <div className="flex items-center px-1 sm:px-2 gap-1">
+          <button
+            onClick={() => onMenuAction("internet")}
+            className="p-0.5 sm:p-1 hover:bg-white/10 rounded transition-colors group"
+            title="Launch Internet Explorer"
+          >
+            <img src="/ie.ico" alt="IE" className="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-sm group-hover:brightness-110" />
+          </button>
+        </div>
+
+        <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
+        
         {/* Minimized Window Buttons */}
         {minimizedWindows.map((window) => (
           <button

@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "lucide-react";
 
 interface LockScreenProps {
   onLogin: () => void;
@@ -47,7 +46,8 @@ export function LockScreen({ onLogin }: LockScreenProps) {
               className="group flex items-center gap-3 sm:gap-4 p-2 sm:p-3 md:p-2 rounded-lg transition-all hover:bg-[#FDF9C3]/10 active:bg-[#FDF9C3]/20 w-full md:w-auto justify-center md:justify-start"
             >
               <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded border-2 border-[#FEEFA6] bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-lg overflow-hidden group-hover:border-[#FFF8D4]">
-                <User className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-[#003399]" />
+                {/* <User className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-[#003399]" /> */}
+                <img src="/pro.jpg" alt="User" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="flex flex-col items-start text-left">
