@@ -1,0 +1,48 @@
+Mahmudul Ahsan
+Jr. Software Engineer
+Dhaka, Bangladesh | +8801521561664 | mamahi1998@gmail.com
+
+SUMMARY
+Passionate Jr. Software Engineer with a strong foundation in Computer Science. Experienced in building AI-integrated web applications and modernizing legacy codebases. Solved 500+ algorithmic problems across various platforms.
+
+EXPERIENCE
+MyMedicalHub International | Jr. Software Engineer | Jul 2025 - Present
+- Contributed to building AI-integrated web applications using component-based design.
+- Integrated automated user interactions via voice and worked on human annotation modules.
+- Modernized legacy codebases into newer, efficient design technologies.
+
+Vivasoft Limited | Front-end Intern | Oct 2023 - Mar 2024
+- Contributed to front-end development of the Visitor Management System.
+- Developed optimized UI components using React.js and Tailwind CSS.
+- Collaborated in an Agile team with Git and version control best practices.
+
+PROJECTS
+ScribeLogs - AI-Powered Chrome Extension
+- Chrome extension that summarizes YouTube videos using OpenAI API. Optimized costs by storing summaries in Firestore.
+
+Hospital Billing Management
+- Hospital management app with localStorage caching and dynamic reports for admin insights.
+
+LogicLifters - Course Management Site
+- Dynamic course management website with admin panel for content management.
+
+E-Dars - Quran & Islamic Course Site
+- Quran learning platform with audio playback, quizzes, and real-time leaderboard.
+
+SKILLS
+Languages: C, C++, Java, JavaScript, TypeScript, Python, HTML, Latex
+Frontend: React, Next.js, CSS, SCSS, Tailwind CSS, DaisyUI, Bootstrap, Redux
+Backend & DB: Node.js, Express.js, Sequelize, SQL, MySQL, MongoDB, Firebase
+Tools: Git, GitHub, Azure DevOps, Notion
+
+EDUCATION
+Rajshahi University of Engineering & Technology
+B.Sc in Computer Science & Engineering | Jan 2020 - June 2025 | CGPA: 3.33 / 4.00
+
+ACHIEVEMENTS
+- ITEE FE Level 2 (2024): National Rank 5th
+- RUET Day Innovation Idea Contest (2023): 3rd Place
+
+RESEARCH
+- A Lightweight Framework for Facial Emotion Recognition (NCIM 2025)
+- Optimizing Intrusion Detection in Banking Networks (Undergraduate Thesis)
