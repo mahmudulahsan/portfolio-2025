@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🖥️ Windows XP Portfolio
 
-## Getting Started
+A nostalgic, interactive portfolio website built with modern web technologies, designed to replicate the classic **Windows XP** desktop experience.
 
-First, run the development server:
+![Project Preview](/public/og-image.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Features
+
+- **Authentic Windows XP UI**: Meticulously crafted desktop environment with a functional Taskbar, Start Menu, and System Tray.
+- **Interactive Windows**: Draggable, minimizable, and stackable windows for various "applications".
+- **Clippy Assistant**: A helpful, AI-powered (simulated) Clippy that answers questions about my skills and experience.
+- **Applications**:
+  - **My Profile (ahsan.js)**: A detailed profile viewer.
+  - **Internet Explorer**: A blog reader interface.
+  - **My Projects**: An interactive file explorer to browse my projects.
+  - **Notepad**: A simple text viewer for the "Read Me" file.
+  - **Winamp / Media Player**: (Planned/In-progress features).
+- **Themes**: Switch between classic Blue, Olive, and Silver themes.
+- **SEO Optimized**: Fully optimized with dynamic sitemaps, metadata, and Open Graph tags.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/) (Radix UI)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Utilities**: `react-draggable`, `clsx`, `tailwind-merge`
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally on your machine.
+
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm or yarn
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/yourusername/portfolio-mahi.git
+    cd portfolio-mahi
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+4.  **Open your browser:**
+    Navigate to [http://localhost:3000](http://localhost:3000) to see the application running.
+
+## 📂 Project Structure
+
+The project follows a clean, industry-standard structure:
+
+```
+src/
+├── app/                 # Next.js App Router pages and layouts
+│   ├── layout.tsx       # Root layout with SEO metadata
+│   ├── page.tsx         # Main entry point (renders Desktop)
+│   └── ...
+├── components/
+│   ├── apps/            # Application-specific components (IE, Projects, etc.)
+│   ├── os/              # Core OS components (Desktop, Taskbar, Window, etc.)
+│   └── ui/              # Reusable UI components (Shadcn/Radix)
+├── data/                # Static data files (projects, skills, blogs)
+├── lib/                 # Utility functions
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔍 SEO & Performance
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This portfolio is built with performance and SEO in mind:
+- **Dynamic Metadata**: Optimized title and description tags.
+- **Sitemap & Robots.txt**: Automatically generated for better crawling.
+- **Open Graph**: Social media preview cards.
+- **PWA Ready**: Includes a web app manifest.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🤝 Contributing
 
-## Learn More
+Contributions are welcome! If you have ideas for new "apps" or features to add to this XP simulation, feel free to fork the repo and submit a pull request.
 
-To learn more about Next.js, take a look at the following resources:
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is open source and available under the [MIT License](LICENSE).
 
-## Deploy on Vercel
+## 📬 Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Mahmudul Ahsan** - Software Engineer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Website**: [mahmudulahsan.com](https://mahmudulahsan.com)
+- **LinkedIn**: [linkedin.com/in/ahsanmahmudul](https://www.linkedin.com/in/ahsanmahmudul/)
+- **GitHub**: [github.com/mahmudulahsan](https://github.com/mahmudulahsan)
+
+---
+*Built with a cup of nostalgia ☕*
