@@ -1,5 +1,7 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 interface LockScreenProps {
   onLogin: () => void;
@@ -41,13 +43,16 @@ export function LockScreen({ onLogin }: LockScreenProps) {
 
           {/* Right Side - Users */}
           <div className="flex-1 md:pl-8">
-            <button
+            <Button
               onClick={onLogin}
-              className="group flex items-center gap-3 sm:gap-4 p-2 sm:p-3 md:p-2 rounded-lg transition-all hover:bg-[#FDF9C3]/10 active:bg-[#FDF9C3]/20 w-full md:w-auto justify-center md:justify-start"
+              variant="ghost"
+              className="group flex items-center gap-3 sm:gap-4 p-2 sm:p-3 md:p-2 rounded-lg transition-all hover:bg-[#FDF9C3]/10 active:bg-[#FDF9C3]/20 w-full md:w-auto justify-center md:justify-start h-auto"
             >
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded border-2 border-[#FEEFA6] bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-lg overflow-hidden group-hover:border-[#FFF8D4]">
-                {/* <User className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-[#003399]" /> */}
-                <img src="/pro.jpg" alt="User" className="w-full h-full object-cover" />
+              <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded border-2 border-[#FEEFA6] bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-lg overflow-hidden group-hover:border-[#FFF8D4] p-0">
+                <Avatar className="h-full w-full rounded-none">
+                  <AvatarImage src="/pro.jpg" alt="User" className="object-cover" />
+                  <AvatarFallback className="rounded-none">MA</AvatarFallback>
+                </Avatar>
                 <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="flex flex-col items-start text-left">
@@ -58,7 +63,7 @@ export function LockScreen({ onLogin }: LockScreenProps) {
                   Full Stack Developer
                 </span>
               </div>
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -66,15 +71,16 @@ export function LockScreen({ onLogin }: LockScreenProps) {
       {/* Bottom Bar */}
       <div className="h-auto sm:h-20 md:h-24 bg-[#00309C] border-t-2 border-[#E6AA2E] flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 md:px-8 py-3 sm:py-0 gap-3 sm:gap-0 relative">
         <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center sm:justify-start">
-          <button 
-            className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-white/10 transition-colors text-[#ABC0EE] hover:text-white text-sm sm:text-base"
+          <Button 
+            variant="ghost"
+            className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-white/10 transition-colors text-[#ABC0EE] hover:text-white text-sm sm:text-base h-auto"
             onClick={() => window.close()}
           >
             <div className="bg-[#E6AA2E] p-1 rounded-sm">
               <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white rounded-full border-t-transparent animate-spin" />
             </div>
             <span className="font-medium">Turn off computer</span>
-          </button>
+          </Button>
         </div>
 
         <div className="text-[#ABC0EE] text-xs sm:text-sm text-center sm:text-right">

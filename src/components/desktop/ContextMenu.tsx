@@ -1,5 +1,6 @@
 "use client";
 
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 
@@ -59,17 +60,15 @@ export function ContextMenu({ x, y, items, onClose }: ContextMenuProps) {
   }, [onClose]);
 
   return (
-    <div
+    <Card
       ref={menuRef}
-      className="absolute z-[9999] min-w-[160px] bg-white font-sans"
+      className="absolute z-[9999] min-w-[160px] bg-white font-sans rounded-none border-[#ACA899] shadow-[2px_2px_2px_rgba(0,0,0,0.4)] p-0"
       style={{ 
         top: position.y, 
         left: position.x,
-        border: "1px solid #ACA899",
-        boxShadow: "2px 2px 2px rgba(0,0,0,0.4)"
       }}
     >
-      <div className="py-0.5 bg-[#F1F1F1] border border-white">
+      <CardContent className="py-0.5 bg-[#F1F1F1] border border-white p-0">
         {items.map((item, index) => {
           if (item.separator) {
             return (
@@ -101,7 +100,7 @@ export function ContextMenu({ x, y, items, onClose }: ContextMenuProps) {
             </button>
           );
         })}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

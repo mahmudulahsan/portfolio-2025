@@ -1,15 +1,16 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Briefcase,
-  Cpu,
-  Download,
-  HelpCircle,
-  LogOut,
-  Mail,
-  PlayCircle,
-  Settings,
-  User
+    Briefcase,
+    Cpu,
+    Download,
+    HelpCircle,
+    LogOut,
+    Mail,
+    PlayCircle,
+    Settings,
+    User
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -99,9 +100,11 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)"
         }}
       >
-        <div className="h-10 w-10 rounded border-2 border-white/40 bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-md overflow-hidden">
-          {/* <User className="h-7 w-7 text-[#003399]" /> */}
-          <img src="/pro.jpg" alt="User" className="w-full h-full object-cover" />
+        <div className="h-10 w-10 rounded border-2 border-white/40 bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-md overflow-hidden p-0">
+          <Avatar className="h-full w-full rounded-none">
+            <AvatarImage src="/pro.jpg" alt="User" className="object-cover" />
+            <AvatarFallback className="rounded-none">MA</AvatarFallback>
+          </Avatar>
         </div>
         <div className="flex-1">
           <p className="font-bold text-sm drop-shadow-md">Mahmudul Ahsan</p>

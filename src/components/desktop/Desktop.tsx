@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { contactInfo } from "@/data/contact";
-import { Coffee, CupSoda, Mail } from "lucide-react";
+import { Coffee, Mail } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BootScreen } from "./BootScreen";
 import { Clippy } from "./Clippy";
@@ -557,7 +559,7 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
             </div>
             <div className="flex gap-2 items-center">
               <label className="text-xs text-black">Open:</label>
-              <input
+              <Input
                 type="text"
                 value={runCommand}
                 onChange={(e) => setRunCommand(e.target.value)}
@@ -569,27 +571,29 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
                     }
                   }
                 }}
-                className="w-full border border-[#7F9DB9] px-2 py-1 text-xs outline-none focus:border-blue-500"
+                className="w-full border border-[#7F9DB9] px-2 py-1 text-xs outline-none focus:border-blue-500 rounded-none h-auto shadow-none focus-visible:ring-0"
               />
             </div>
             <div className="flex justify-end gap-2 pt-4">
-              <button
+              <Button
                 onClick={() => {
                   if (runCommand) {
                     window.open(runCommand.startsWith("http") ? runCommand : `https://${runCommand}`, "_blank");
                     setIsRunOpen(false);
                   }
                 }}
-                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs"
+                variant="outline"
+                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs h-auto text-black font-normal"
               >
                 OK
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => setIsRunOpen(false)}
-                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs"
+                variant="outline"
+                className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs h-auto text-black font-normal"
               >
                 Cancel
-              </button>
+              </Button>
             </div>
           </div>
         </Window>

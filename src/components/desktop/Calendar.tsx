@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -62,77 +64,78 @@ export function Calendar({ isOpen, onClose }: CalendarProps) {
   };
 
   return (
-    <div
-      ref={calendarRef}
-      className="fixed bottom-12 right-2 z-[9999] bg-[#ECE9D8] rounded-sm shadow-2xl font-tahoma"
-      style={{
-        border: "1px solid #0831D9",
-        boxShadow: "2px 2px 8px rgba(0,0,0,0.5)"
-      }}
-    >
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[#0054E3] to-[#0A6EF1] px-2 py-1.5 flex items-center justify-between">
-        <button
-          onClick={previousMonth}
-          className="p-0.5 hover:bg-white/20 rounded transition-colors"
-        >
-          <ChevronLeft className="h-4 w-4 text-white" />
-        </button>
-        <span className="text-white font-bold text-xs">
-          {monthNames[month]} {year}
-        </span>
-        <button
-          onClick={nextMonth}
-          className="p-0.5 hover:bg-white/20 rounded transition-colors"
-        >
-          <ChevronRight className="h-4 w-4 text-white" />
-        </button>
-      </div>
-
-      {/* Calendar Grid */}
-      <div className="p-2">
-        {/* Day Headers */}
-        <div className="grid grid-cols-7 gap-1 mb-1">
-          {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-            <div
-              key={day}
-              className="text-center text-[10px] font-bold text-[#003399] w-6 h-5 flex items-center justify-center"
-            >
-              {day}
-            </div>
-          ))}
-        </div>
-
-        {/* Days */}
-        <div className="grid grid-cols-7 gap-1">
-          {days.map((day, index) => {
-            const isToday =
-              day === today.getDate() &&
-              month === today.getMonth() &&
-              year === today.getFullYear();
-
-            return (
-              <div
-                key={index}
-                className={`
-                  text-center text-[10px] w-6 h-5 flex items-center justify-center rounded-sm
-                  ${day ? "text-black cursor-default" : ""}
-                  ${isToday ? "bg-[#316AC5] text-white font-bold" : "hover:bg-[#D1E5FA]"}
-                `}
-              >
-                {day || ""}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Today's Date */}
-        <div className="mt-2 pt-2 border-t border-[#ACA899] text-center">
-          <span className="text-[10px] text-black">
-            Today: {today.toLocaleDateString()}
+    <div ref={calendarRef} className="fixed bottom-12 right-2 z-[9999]">
+      <Card 
+        className="bg-[#ECE9D8] rounded-sm shadow-2xl font-tahoma border-[#0831D9] border shadow-[2px_2px_8px_rgba(0,0,0,0.5)] p-0"
+      >
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[#0054E3] to-[#0A6EF1] px-2 py-1.5 flex items-center justify-between rounded-t-sm">
+          <Button
+            onClick={previousMonth}
+            variant="ghost"
+            size="icon"
+            className="h-5 w-5 hover:bg-white/20 rounded transition-colors text-white p-0"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="text-white font-bold text-xs">
+            {monthNames[month]} {year}
           </span>
+          <Button
+            onClick={nextMonth}
+            variant="ghost"
+            size="icon"
+            className="h-5 w-5 hover:bg-white/20 rounded transition-colors text-white p-0"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
-      </div>
+
+        {/* Calendar Grid */}
+        <CardContent className="p-2">
+          {/* Day Headers */}
+          <div className="grid grid-cols-7 gap-1 mb-1">
+            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+              <div
+                key={day}
+                className="text-center text-[10px] font-bold text-[#003399] w-6 h-5 flex items-center justify-center"
+              >
+                {day}
+              </div>
+            ))}
+          </div>
+
+          {/* Days */}
+          <div className="grid grid-cols-7 gap-1">
+            {days.map((day, index) => {
+              const isToday =
+                day === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear();
+
+              return (
+                <div
+                  key={index}
+                  className={`
+                    text-center text-[10px] w-6 h-5 flex items-center justify-center rounded-sm
+                    ${day ? "text-black cursor-default" : ""}
+                    ${isToday ? "bg-[#316AC5] text-white font-bold" : "hover:bg-[#D1E5FA]"}
+                  `}
+                >
+                  {day || ""}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Today's Date */}
+          <div className="mt-2 pt-2 border-t border-[#ACA899] text-center">
+            <span className="text-[10px] text-black">
+              Today: {today.toLocaleDateString()}
+            </span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

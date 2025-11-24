@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { blogs } from "@/data/blogs";
 import { ArrowLeft, ArrowRight, ChevronDown, Home, RefreshCw, Search, X } from "lucide-react";
 import { useState } from "react";
@@ -72,57 +75,64 @@ export function InternetExplorer() {
         <span className="text-xs text-gray-500">Address</span>
         <div className="flex-1 flex items-center bg-white border border-[#7F9DB9] px-1 h-5">
           <img src="/ie.png" alt="IE" className="w-3 h-3 mr-1" />
-          <input 
+          <Input 
             type="text" 
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            className="flex-1 text-xs outline-none font-sans"
+            className="flex-1 text-xs outline-none font-sans border-none h-auto p-0 shadow-none focus-visible:ring-0 rounded-none bg-transparent"
             readOnly
           />
           <ChevronDown className="w-3 h-3 text-gray-500" />
         </div>
-        <button disabled className="flex items-center gap-1 px-2 py-0.5 bg-[#F4F4F4] border border-gray-400 rounded disabled:opacity-50 disabled:cursor-not-allowed">
-          <span className="text-xs text-gray-400 font-bold">Go</span>
-        </button>
+        <Button 
+          disabled 
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-1 px-2 py-0.5 bg-[#F4F4F4] border border-gray-400 rounded disabled:opacity-50 disabled:cursor-not-allowed h-auto text-xs text-gray-400 font-bold hover:bg-[#F4F4F4] shadow-none"
+        >
+          Go
+        </Button>
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 bg-white overflow-auto p-8 font-serif">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-[#003399] mb-2 border-b-2 border-[#003399] pb-2">
-            Welcome to Internet Explorer
-          </h1>
-          <p className="text-gray-600 mb-8 italic">Your gateway to my technical writings across the web.</p>
+      <div className="flex-1 bg-white overflow-hidden font-serif relative">
+        <ScrollArea className="h-full w-full">
+          <div className="max-w-3xl mx-auto p-8">
+            <h1 className="text-3xl font-bold text-[#003399] mb-2 border-b-2 border-[#003399] pb-2">
+              Welcome to Internet Explorer
+            </h1>
+            <p className="text-gray-600 mb-8 italic">Your gateway to my technical writings across the web.</p>
 
-          <div className="grid gap-6">
-            {blogs.map((blog) => (
-              <div key={blog.id} className="flex gap-4 p-4 border border-[#D0D0BF] bg-[#F5F5F5] hover:bg-[#E8F0FA] hover:border-[#316AC5] transition-colors group">
-                <div className="shrink-0">
-                   <div className="w-12 h-12 bg-white border border-gray-300 flex items-center justify-center shadow-sm">
-                      <span className="font-bold text-xl text-[#003399]">{blog.platform[0]}</span>
-                   </div>
-                </div>
-                <div className="flex-1">
-                  <a href={blog.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-[#003399] group-hover:underline block mb-1">
-                    {blog.title}
-                  </a>
-                  <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                    <span className="font-bold text-[#003399]">{blog.platform}</span>
-                    <span>•</span>
-                    <span>{blog.date}</span>
+            <div className="grid gap-6">
+              {blogs.map((blog) => (
+                <div key={blog.id} className="flex gap-4 p-4 border border-[#D0D0BF] bg-[#F5F5F5] hover:bg-[#E8F0FA] hover:border-[#316AC5] transition-colors group">
+                  <div className="shrink-0">
+                     <div className="w-12 h-12 bg-white border border-gray-300 flex items-center justify-center shadow-sm">
+                        <span className="font-bold text-xl text-[#003399]">{blog.platform[0]}</span>
+                     </div>
                   </div>
-                  <p className="text-sm text-black leading-relaxed">
-                    {blog.description}
-                  </p>
+                  <div className="flex-1">
+                    <a href={blog.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-[#003399] group-hover:underline block mb-1">
+                      {blog.title}
+                    </a>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                      <span className="font-bold text-[#003399]">{blog.platform}</span>
+                      <span>•</span>
+                      <span>{blog.date}</span>
+                    </div>
+                    <p className="text-sm text-black leading-relaxed">
+                      {blog.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 font-sans">
-            © 2025 Mahmudul Ahsan. All rights reserved.
+            <div className="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 font-sans">
+              © 2025 Mahmudul Ahsan. All rights reserved.
+            </div>
           </div>
-        </div>
+        </ScrollArea>
       </div>
 
       {/* Status Bar */}

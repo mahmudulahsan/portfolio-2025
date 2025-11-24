@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Calendar } from "./Calendar";
@@ -84,7 +85,7 @@ export function Taskbar({
       />
       
       <div className="flex items-center gap-1 sm:gap-2 h-full py-0.5 sm:py-1 flex-1 overflow-hidden">
-        <button
+        <Button
           id="start-button"
           onClick={() => setIsStartOpen(!isStartOpen)}
           className={cn(
@@ -92,7 +93,7 @@ export function Taskbar({
             "bg-gradient-to-b from-[#5eac56] to-[#3c873c]",
             "hover:from-[#6bc462] hover:to-[#4a9d42]",
             isStartOpen && "from-[#4a9d42] to-[#3c873c]",
-            "border border-[#2d6b2d]"
+            "border border-[#2d6b2d] p-0"
           )}
           style={{
             boxShadow: isStartOpen 
@@ -106,25 +107,27 @@ export function Taskbar({
             className="h-4 w-4 sm:h-5 sm:w-5"
           />
           <span className="drop-shadow-sm hidden xs:inline sm:inline">Start</span>
-        </button>
+        </Button>
         <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
         
         {/* Quick Launch */}
         <div className="flex items-center px-1 sm:px-2 gap-1">
-          <button
+          <Button
             onClick={() => onMenuAction("internet")}
-            className="p-0.5 sm:p-1 hover:bg-white/10 rounded transition-colors group"
+            variant="ghost"
+            size="icon"
+            className="p-0.5 sm:p-1 hover:bg-white/10 rounded transition-colors group h-auto w-auto"
             title="Launch Internet Explorer"
           >
             <img src="/ie.ico" alt="IE" className="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-sm group-hover:brightness-110" />
-          </button>
+          </Button>
         </div>
 
         <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
         
         {/* Minimized Window Buttons */}
         {minimizedWindows.map((window) => (
-          <button
+          <Button
             key={window.id}
             onClick={window.onRestore}
             className={cn(
@@ -139,11 +142,11 @@ export function Taskbar({
             title={window.title}
           >
             <span className="truncate text-left">{window.title}</span>
-          </button>
+          </Button>
         ))}
       </div>
 
-      <button
+      <Button
         id="clock-button"
         onClick={() => setIsCalendarOpen(!isCalendarOpen)}
         className="flex h-5 sm:h-7 items-center justify-center px-2 sm:px-3 rounded mr-0.5 sm:mr-1 text-white text-[10px] sm:text-xs font-medium flex-shrink-0 hover:brightness-110 transition-all"
@@ -156,7 +159,7 @@ export function Taskbar({
         }}
       >
         {time}
-      </button>
+      </Button>
 
       <Calendar isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
     </div>

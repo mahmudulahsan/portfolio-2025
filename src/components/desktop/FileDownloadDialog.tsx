@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Window } from "./Window";
@@ -150,25 +152,38 @@ export function FileDownloadDialog({ isOpen, onClose, fileName, fileUrl }: FileD
           </div>
 
           <div className="flex items-center gap-2 mt-1">
-            <input type="checkbox" checked disabled className="w-3 h-3 border border-[#003C74]" />
+            <Checkbox 
+              checked 
+              disabled 
+              className="w-3 h-3 border border-[#003C74] rounded-none data-[state=checked]:bg-white data-[state=checked]:text-black"
+            />
             <label className="text-black">Close this dialog box when download completes</label>
           </div>
         </div>
 
         {/* Buttons */}
         <div className="flex justify-end gap-2 mt-auto pt-2 border-t border-[#D4D0C8]">
-          <button className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] text-[#808080] cursor-not-allowed shadow-[inset_1px_1px_0px_white]">
+          <Button 
+            disabled 
+            variant="outline"
+            className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] text-[#808080] cursor-not-allowed shadow-[inset_1px_1px_0px_white] h-auto text-[11px] font-tahoma hover:bg-[#F4F4F4]"
+          >
             Open
-          </button>
-          <button className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] text-[#808080] cursor-not-allowed shadow-[inset_1px_1px_0px_white]">
+          </Button>
+          <Button 
+            disabled 
+            variant="outline"
+            className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] text-[#808080] cursor-not-allowed shadow-[inset_1px_1px_0px_white] h-auto text-[11px] font-tahoma hover:bg-[#F4F4F4]"
+          >
             Open Folder
-          </button>
-          <button 
+          </Button>
+          <Button 
             onClick={onClose}
-            className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] text-black shadow-[inset_1px_1px_0px_white]"
+            variant="outline"
+            className="px-4 py-1 min-w-[75px] bg-[#F4F4F4] border border-[#003C74] rounded-[3px] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] text-black shadow-[inset_1px_1px_0px_white] h-auto text-[11px] font-tahoma"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </Window>
