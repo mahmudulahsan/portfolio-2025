@@ -1,10 +1,10 @@
 "use client";
 
+import { Window } from "@/components/os/Window";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileText } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Window } from "./Window";
 
 interface FileDownloadDialogProps {
   isOpen: boolean;

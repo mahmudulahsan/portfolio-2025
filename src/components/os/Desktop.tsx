@@ -1,5 +1,10 @@
 "use client";
 
+import { FileDownloadDialog } from "@/components/apps/FileDownloadDialog";
+import { InternetExplorer } from "@/components/apps/InternetExplorer";
+import { ProfileViewer } from "@/components/apps/ProfileViewer";
+import { ProjectsViewer } from "@/components/apps/ProjectsViewer";
+import { SkillsViewer } from "@/components/apps/SkillsViewer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { contactInfo } from "@/data/contact";
@@ -10,12 +15,7 @@ import { Clippy } from "./Clippy";
 import { ContextMenu } from "./ContextMenu";
 import { DesktopIcon } from "./DesktopIcon";
 import { DisplayProperties } from "./DisplayProperties";
-import { FileDownloadDialog } from "./FileDownloadDialog";
-import { InternetExplorer } from "./InternetExplorer";
 import { LockScreen } from "./LockScreen";
-import { ProfileViewer } from "./ProfileViewer";
-import { ProjectsViewer } from "./ProjectsViewer";
-import { SkillsViewer } from "./SkillsViewer";
 import { Taskbar } from "./Taskbar";
 import { Window } from "./Window";
 
