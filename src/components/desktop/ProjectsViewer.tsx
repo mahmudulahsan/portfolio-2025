@@ -10,6 +10,15 @@ export function ProjectsViewer() {
   const [expandedCategories, setExpandedCategories] = useState<string[]>(["Real Life Projects", "Hobby Projects", "Landing Pages"]);
 
   const toggleCategory = (category: string) => {
+    const isCollapsing = expandedCategories.includes(category);
+    
+    if (isCollapsing && selectedProject) {
+       const project = projects.find(p => p.id === selectedProject);
+       if (project && project.category === category) {
+          setSelectedProject(null);
+       }
+    }
+
     setExpandedCategories(prev => 
       prev.includes(category) 
         ? prev.filter(c => c !== category)
@@ -116,7 +125,7 @@ export function ProjectsViewer() {
 
           {/* Live Preview Section */}
           {selectedProject && (
-            <div className="flex flex-col gap-1 animate-in fade-in duration-300 mt-auto pt-4 border-t border-[#D6D3CE] max-w-3xl mx-auto w-full">
+            <div className="flex flex-col gap-1 animate-in fade-in duration-300 mt-auto pt-4 border-t border-[#D6D3CE] max-w-5xl mx-auto w-full">
               <div className="flex items-center justify-between bg-gradient-to-r from-[#0054E3] to-[#2F89F5] px-2 py-1 rounded-t-sm">
                 <div className="flex items-center gap-2">
                   <img src="/ie.ico" alt="IE" className="w-4 h-4" />

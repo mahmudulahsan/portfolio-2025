@@ -23,7 +23,7 @@ export const projects: Project[] = [
     title: "ScribeLogs",
     type: "Chrome Extension",
     description: "Developed a Chrome extension that summarizes YouTube videos by extracting transcripts and using the OpenAI API. Optimized costs by storing pre-generated summaries in Firestore and handling user queries by sending only the summary instead of the full transcript, enabling efficient chatbot-style interactions.",
-    tech: "JavaScript, OpenAI API, Firebase",
+    tech: "React, TailwindCSS,JavaScript, OpenAI API, Firebase",
     link: "",
     category: "Real Life Projects"
   },
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     description: "Developed a Quran learning platform using React.js and public APIs, featuring Bangla translation, audio playback, and user favorites. Built interactive Salat courses with quizzes, scoring, word tracking, and a real-time leaderboard.",
     tech: "Reactjs, Firebase, TailwindCSS, DaisyUI",
     link: "https://e-dars-bd.web.app/",
-    category: "Hobby Projects"
+    category: "Real Life Projects"
   },
   {
     id: "token-lagbe",
@@ -116,5 +116,32 @@ export const projects: Project[] = [
     tech: "Reactjs, Firebase Hosting, TailwindCSS",
     link: "https://ruet-cse-19-hof.web.app/",
     category: "Real Life Projects"
+  },
+  {
+    id: "pc-builder",
+    title: "PC Builder Web App",
+    type: "Web Application",
+    description: "Developed a pc builder web app where data are extracted from websites and users can build and budget their own pc",
+    tech: "Reactjs, Selenium, Nodejs, Expressjs",
+    link: "https://www.youtube.com/watch?v=sP9Jk0xQH5g",
+    category: "Hobby Projects"
+  },
+  {
+    id: "poem-app",
+    title: "Poem Web App",
+    type: "Web Application",
+    description: "Developed a tiny app for a viral arabic poem",
+    tech: "Reactjs, TailwindCSS, DaisyUI, Firebase Hosting",
+    link: "https://tobtobitob-tobtobani.web.app/",
+    category: "Hobby Projects"
+  },
+  {
+    id: "random-ayat-generator",
+    title: "Random Quranic Verses Generator",
+    type: "Web Application",
+    description: "Developed a tiny app for generating random Quranic verses",
+    tech: "Reactjs, TailwindCSS, DaisyUI, Firebase Hosting",
+    link: "https://mahmudulahsan.github.io/random-quran-ayat-generator/",
+    category: "Hobby Projects"
   },
 ];

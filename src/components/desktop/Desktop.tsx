@@ -4,6 +4,7 @@ import { contactInfo } from "@/data/contact";
 import { Mail } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BootScreen } from "./BootScreen";
+import { Clippy } from "./Clippy";
 import { ContextMenu } from "./ContextMenu";
 import { DesktopIcon } from "./DesktopIcon";
 import { DisplayProperties } from "./DisplayProperties";
@@ -269,7 +270,7 @@ export function Desktop() {
             icon={<img src="/contact.ico" alt="Contact" className="h-full w-full object-contain drop-shadow-md" />}
           />
           <DesktopIcon
-            label="Read Me.txt"
+            label="readme.txt"
             selected={selectedIcon === "readme"}
             onClick={() => handleIconClick("readme")}
             onDoubleClick={() => handleIconDoubleClick("readme")}
@@ -317,10 +318,13 @@ export function Desktop() {
           height="600px"
           theme={theme}
         >
-          <ProfileViewer onClose={() => {
-            setIsAhsanWindowOpen(false);
-            setIsAhsanMinimized(false);
-          }} />
+          <ProfileViewer 
+            onClose={() => {
+              setIsAhsanWindowOpen(false);
+              setIsAhsanMinimized(false);
+            }} 
+            onDownloadResume={() => setIsDownloadOpen(true)}
+          />
         </Window>
 
         <Window
@@ -368,18 +372,18 @@ export function Desktop() {
           onMinimize={() => setIsContactMinimized(true)}
           defaultPosition={{ x: 250, y: 120 }}
           width="400px"
-          height="300px"
+          height="320px"
           theme={theme}
         >
-          <div className="p-4 bg-white h-full font-tahoma">
-            <div className="flex items-center gap-4 mb-4">
+          <div className="p-4 bg-white h-full font-tahoma flex flex-col">
+            <div className="flex items-center gap-4 mb-4 shrink-0">
               <img src="/globe.svg" className="w-12 h-12" />
               <div>
                 <h2 className="text-lg font-bold">Contact Information</h2>
                 <p className="text-sm text-gray-600">Get in touch with me</p>
               </div>
             </div>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm flex-1">
               {contactInfo.links.map((link) => (
                 <div key={link.id} className="flex items-center gap-2">
                   {link.id === 'email' ? (
@@ -388,22 +392,22 @@ export function Desktop() {
                     <span className="font-bold w-4 text-center text-[#003399] text-xs">
                       {link.id === 'linkedin' ? 'IN' : 
                        link.id === 'github' ? 'GH' : 
-                       link.id === 'codeforces' ? 'CF' : 
+                       link.id === 'problem-solving' ? 'LC' : 
                        link.id === 'youtube' ? 'YT' : '..'}
                     </span>
                   )}
                   <a href={link.href} target="_blank" className="text-blue-600 hover:underline">{link.value}</a>
                 </div>
               ))}
-              <div className="mt-4 p-2 bg-[#FFFFE1] border border-[#ACA899] text-xs">
-                <p>Feel free to reach out for collaborations or opportunities!</p>
-              </div>
+            </div>
+            <div className="mt-auto p-2 bg-[#FFFFE1] border border-[#ACA899] text-xs shrink-0">
+              <p>Feel free to reach out for collaborations or opportunities!</p>
             </div>
           </div>
         </Window>
 
         <Window
-          title="Read Me.txt - Notepad"
+          title="readme.txt - Notepad"
           isOpen={isReadmeOpen}
           isMinimized={isReadmeMinimized}
           onClose={() => {
@@ -427,17 +431,11 @@ export function Desktop() {
             <textarea 
               className="flex-1 p-2 resize-none outline-none" 
               readOnly 
-              defaultValue={`Welcome to my portfolio!
+              defaultValue={`I’m Mahmudul Ahsan from Dhaka, Bangladesh, a graduate of CSE, RUET and currently working as a Software Engineer at MyMedicalHub International. I love thinking creatively and enjoy bringing engineering concepts into real-life applications.
 
-I am Mahmudul Ahsan, a passionate Jr. Software Engineer.
-This website is designed to look like Windows XP, my favorite OS growing up.
+My journey with computers began almost 20 years ago with Windows XP, a system I still feel deeply nostalgic about. From Road Rash to SkyRoads and countless games from those classic mixed DVDs in friday-morning, Windows XP shaped many of my earliest tech memories. That’s why this website is designed to look and feel like Windows XP, my all-time favorite OS.
 
-Feel free to explore:
-- "My Skills" to see what I can do.
-- "My Projects" to see what I've built.
-- "ahsan.js" to see my full profile.
-
-Enjoy your stay!
+Feel free to explore my skills, experience, and projects—all presented through a nostalgic XP-style interface.
 `}
             />
           </div>
@@ -577,6 +575,10 @@ Enjoy your stay!
             ]}
           />
         )}
+      </div>
+
+      {/* Clippy Assistant */}
+      <Clippy />
 
       {/* Copyright Text */}
       <div className="absolute bottom-10 right-4 text-white/90 font-tahoma text-sm drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] select-none pointer-events-none z-0">
@@ -589,7 +591,6 @@ Enjoy your stay!
         minimizedWindows={minimizedWindows}
         theme={theme}
       />
-    </div>
     </div>
   );
 }

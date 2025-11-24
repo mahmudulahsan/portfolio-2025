@@ -7,14 +7,15 @@ import { projects } from "@/data/projects";
 import { researchItems } from "@/data/research";
 import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/utils";
-import { Briefcase, Code, Github, GraduationCap, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { Briefcase, Code, Download, Github, GraduationCap, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import { useState } from "react";
 
 interface ProfileViewerProps {
   onClose: () => void;
+  onDownloadResume: () => void;
 }
 
-export function ProfileViewer({ onClose }: ProfileViewerProps) {
+export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps) {
   const [activeTab, setActiveTab] = useState<"general" | "experience" | "projects" | "skills" | "research">("general");
 
   const tabs = [
@@ -28,7 +29,7 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
   return (
     <div className="flex flex-col h-full bg-[#ECE9D8] font-tahoma text-xs select-text">
       {/* Header / User Info */}
-      <div className="flex items-center gap-4 p-3 pb-0">
+      <div className="flex items-start gap-4 p-3 pb-0">
         <div className="p-1 bg-white border border-[#ACA899] shadow-inner shrink-0">
           <div className="h-16 w-16 bg-gradient-to-br from-[#E3E3E3] to-[#C0C0C0] flex items-center justify-center border border-[#8E8E8E]">
             {/* <User className="h-10 w-10 text-[#808080]" /> */}
@@ -38,7 +39,7 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
         <div>
           <h2 className="font-bold text-sm text-black">Mahmudul Ahsan</h2>
           <p className="text-[#555555]">Software Engineer</p>
-          <div className="flex items-center gap-3 mt-1 text-[#555555]">
+          <div className="flex items-center mt-1 text-[#555555]">
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
               <span>{contactInfo.address}</span>
@@ -48,6 +49,16 @@ export function ProfileViewer({ onClose }: ProfileViewerProps) {
               <span>{contactInfo.phone}</span>
             </div>
           </div>
+        </div>
+
+        <div className="ml-auto pr-2">
+          <button
+            onClick={onDownloadResume}
+            className="flex items-center px-3 py-1 bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner transition-colors group"
+          >
+            <Download className="h-4 w-4 text-[#003C74] group-hover:text-blue-600" />
+            <span className="text-xs font-tahoma text-black">Download Resume</span>
+          </button>
         </div>
       </div>
 

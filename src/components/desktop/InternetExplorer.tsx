@@ -90,7 +90,7 @@ export function InternetExplorer() {
       <div className="flex-1 bg-white overflow-auto p-8 font-serif">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-[#003399] mb-2 border-b-2 border-[#003399] pb-2">
-            Welcome to Internet Explorer 6
+            Welcome to Internet Explorer
           </h1>
           <p className="text-gray-600 mb-8 italic">Your gateway to my technical writings across the web.</p>
 
@@ -120,7 +120,7 @@ export function InternetExplorer() {
           </div>
 
           <div className="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 font-sans">
-            © 2023 Mahmudul Ahsan. All rights reserved.
+            © 2025 Mahmudul Ahsan. All rights reserved.
           </div>
         </div>
       </div>
