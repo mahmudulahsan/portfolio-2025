@@ -21,7 +21,7 @@ export function SkillsViewer() {
       <div className="bg-[#ECE9D8] border-b border-[#D6D3CE] p-2 flex items-center gap-2">
         <div className="bg-white border border-[#7F9DB9] px-2 py-1 w-full flex items-center gap-2">
           <Cpu className="w-4 h-4 text-gray-500" />
-          <span>Skills Configuration</span>
+          <span>Skills</span>
         </div>
       </div>
 

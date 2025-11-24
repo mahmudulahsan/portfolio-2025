@@ -30,6 +30,11 @@ export function Clippy() {
   const getAnswer = (input: string) => {
     const q = input.toLowerCase();
 
+    // Education
+    if (q.includes("education") || q.includes("school") || q.includes("college") || q.includes("university") || q.includes("degree") || q.includes("subject") || q.includes("cse") || q.includes("ruet")) {
+      return `He has completed his graduation from CSE, RUET`;
+    }
+
     // Skills
     if (q.includes("skill") || q.includes("stack") || q.includes("tech") || q.includes("know") || q.includes("frontend") || q.includes("backend") || q.includes("fullstack") || q.includes("interest") || q.includes("javascript")|| q.includes("react") || q.includes("next") || q.includes("node")) {
       const allSkills = skillGroups.flatMap(g => g.skills);
@@ -132,7 +137,7 @@ export function Clippy() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Ask about Mahmudul..."
+              placeholder="Ask about Mahmudul Ahsan..."
               className="flex-1 border border-gray-400 px-1 py-0.5 text-xs outline-none focus:border-blue-500"
             />
             <button 

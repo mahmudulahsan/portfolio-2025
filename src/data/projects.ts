@@ -113,7 +113,7 @@ export const projects: Project[] = [
     title: "RUET CSE 19 Allumni Database",
     type: "Web Application",
     description: "Developed a alumni platform by extracting data from google sheets for RUET CSE 19",
-    tech: "Reactjs, Firebase Hosting, TailwindCSS",
+    tech: "Reactjs, Firebase Hosting, TailwindCSS, Shadcn, Google Sheets API",
     link: "https://ruet-cse-19-hof.web.app/",
     category: "Real Life Projects"
   },
