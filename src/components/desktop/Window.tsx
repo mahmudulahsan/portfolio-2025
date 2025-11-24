@@ -15,19 +15,23 @@ interface WindowProps {
   width?: string;
   height?: string;
   theme?: "Blue" | "Olive" | "Silver";
+  onFocus?: () => void;
+  isActive?: boolean;
 }
 
-export function Window({ 
-  title, 
-  children, 
-  isOpen, 
-  onClose, 
-  isMinimized, 
+export function Window({
+  title,
+  children,
+  isOpen,
+  onClose,
+  isMinimized,
   onMinimize,
   defaultPosition = { x: 50, y: 50 },
   width = "auto",
   height = "auto",
-  theme = "Blue"
+  theme = "Blue",
+  onFocus,
+  isActive = false
 }: WindowProps) {
   const [position, setPosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
@@ -64,10 +68,10 @@ export function Window({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -77,7 +81,7 @@ export function Window({
       if (isMobile) {
         const { innerWidth, innerHeight } = window;
         const { offsetWidth, offsetHeight } = windowRef.current;
-        
+
         setPosition({
           x: Math.max(0, (innerWidth - offsetWidth) / 2),
           y: Math.max(0, (innerHeight - offsetHeight) / 2)
@@ -86,7 +90,7 @@ export function Window({
         // Ensure window opens within viewport on desktop
         const { innerWidth, innerHeight } = window;
         const { offsetWidth, offsetHeight } = windowRef.current;
-        
+
         let newX = position.x;
         let newY = position.y;
 
@@ -124,7 +128,7 @@ export function Window({
 
   const toggleMaximize = () => {
     if (isMobile) return; // Disable maximize on mobile
-    
+
     if (isMaximized) {
       if (preMaximizeState) {
         setPosition({ x: preMaximizeState.x, y: preMaximizeState.y });
@@ -156,8 +160,9 @@ export function Window({
         width: responsiveWidth,
         height: responsiveHeight,
         maxHeight: maxHeight,
-        zIndex: 50,
+        zIndex: isActive ? 100 : 50,
       }}
+      onMouseDown={() => onFocus?.()}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
@@ -176,14 +181,14 @@ export function Window({
           <span className="drop-shadow-md truncate">{title}</span>
         </div>
         <div className="flex gap-0.5 sm:gap-1 flex-shrink-0">
-          <button 
+          <button
             onClick={(e) => { e.stopPropagation(); onMinimize(); }}
             className="w-[18px] h-[18px] sm:w-[21px] sm:h-[21px] flex items-center justify-center bg-[#2C6AF7] rounded-[3px] border border-white/30 hover:bg-[#1F54D4] active:bg-[#1643B0] shadow-inner group"
           >
             <div className="w-1.5 h-[2px] sm:w-2 sm:h-[2px] bg-white/90 group-hover:bg-white rounded-sm mt-0.5 sm:mt-1" />
           </button>
           {!isMobile && (
-            <button 
+            <button
               onClick={(e) => { e.stopPropagation(); toggleMaximize(); }}
               className="w-[18px] h-[18px] sm:w-[21px] sm:h-[21px] flex items-center justify-center bg-[#2C6AF7] rounded-[3px] border border-white/30 hover:bg-[#1F54D4] active:bg-[#1643B0] shadow-inner group"
             >

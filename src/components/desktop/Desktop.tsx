@@ -55,6 +55,9 @@ export function Desktop() {
   const [isRunMinimized, setIsRunMinimized] = useState(false);
   const [isInternetExplorerMinimized, setIsInternetExplorerMinimized] = useState(false);
 
+  // Z-index management for window stacking
+  const [activeWindow, setActiveWindow] = useState<string | null>(null);
+
   const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver">("Blue");
   const [wallpaper, setWallpaper] = useState("/wallpaper.jpeg");
 
@@ -90,38 +93,47 @@ export function Desktop() {
       case "ahsan.js":
         setIsAhsanWindowOpen(true);
         setIsAhsanMinimized(false);
+        setActiveWindow("ahsan.js");
         break;
       case "properties":
         setIsPropertiesOpen(true);
         setIsPropertiesMinimized(false);
+        setActiveWindow("properties");
         break;
       case "settings":
         setIsSettingsOpen(true);
         setIsSettingsMinimized(false);
+        setActiveWindow("settings");
         break;
       case "projects":
         setIsProjectsOpen(true);
         setIsProjectsMinimized(false);
+        setActiveWindow("projects");
         break;
       case "skills":
         setIsSkillsOpen(true);
         setIsSkillsMinimized(false);
+        setActiveWindow("skills");
         break;
       case "contact":
         setIsContactOpen(true);
         setIsContactMinimized(false);
+        setActiveWindow("contact");
         break;
       case "readme":
         setIsReadmeOpen(true);
         setIsReadmeMinimized(false);
+        setActiveWindow("readme");
         break;
       case "run":
         setIsRunOpen(true);
         setIsRunMinimized(false);
+        setActiveWindow("run");
         break;
       case "internet":
         setIsInternetExplorerOpen(true);
         setIsInternetExplorerMinimized(false);
+        setActiveWindow("internet");
         break;
       default:
         break;
@@ -142,22 +154,27 @@ export function Desktop() {
       case "settings":
         setIsSettingsOpen(true);
         setIsSettingsMinimized(false);
+        setActiveWindow("settings");
         break;
       case "properties":
         setIsPropertiesOpen(true);
         setIsPropertiesMinimized(false);
+        setActiveWindow("properties");
         break;
       case "projects":
         setIsProjectsOpen(true);
         setIsProjectsMinimized(false);
+        setActiveWindow("projects");
         break;
       case "run":
         setIsRunOpen(true);
         setIsRunMinimized(false);
+        setActiveWindow("run");
         break;
       case "ahsan.js":
         setIsAhsanWindowOpen(true);
         setIsAhsanMinimized(false);
+        setActiveWindow("ahsan.js");
         break;
       case "github":
         window.open("https://github.com/mahmudulahsan", "_blank");
@@ -175,18 +192,22 @@ export function Desktop() {
       case "help":
         setIsReadmeOpen(true);
         setIsReadmeMinimized(false);
+        setActiveWindow("readme");
         break;
       case "internet":
         setIsInternetExplorerOpen(true);
         setIsInternetExplorerMinimized(false);
+        setActiveWindow("internet");
         break;
       case "skills":
         setIsSkillsOpen(true);
         setIsSkillsMinimized(false);
+        setActiveWindow("skills");
         break;
       case "contact":
         setIsContactOpen(true);
         setIsContactMinimized(false);
+        setActiveWindow("contact");
         break;
       default:
         break;
@@ -194,15 +215,15 @@ export function Desktop() {
   };
 
   const minimizedWindows = [
-    { id: "ahsan.js", title: "ahsan.js - Profile Viewer", isMinimized: isAhsanMinimized, onRestore: () => setIsAhsanMinimized(false) },
-    { id: "projects", title: "My Projects", isMinimized: isProjectsMinimized, onRestore: () => setIsProjectsMinimized(false) },
-    { id: "skills", title: "My Skills", isMinimized: isSkillsMinimized, onRestore: () => setIsSkillsMinimized(false) },
-    { id: "contact", title: "Contact Me", isMinimized: isContactMinimized, onRestore: () => setIsContactMinimized(false) },
-    { id: "readme", title: "Read Me.txt - Notepad", isMinimized: isReadmeMinimized, onRestore: () => setIsReadmeMinimized(false) },
-    { id: "run", title: "Run", isMinimized: isRunMinimized, onRestore: () => setIsRunMinimized(false) },
-    { id: "properties", title: "System Properties", isMinimized: isPropertiesMinimized, onRestore: () => setIsPropertiesMinimized(false) },
-    { id: "settings", title: "Display Settings", isMinimized: isSettingsMinimized, onRestore: () => setIsSettingsMinimized(false) },
-    { id: "internet", title: "Mahmudul's Tech Blog - Microsoft Internet Explorer", isMinimized: isInternetExplorerMinimized, onRestore: () => setIsInternetExplorerMinimized(false) },
+    { id: "ahsan.js", title: "ahsan.js - Profile Viewer", isMinimized: isAhsanMinimized, onRestore: () => { setIsAhsanMinimized(false); setActiveWindow("ahsan.js"); } },
+    { id: "projects", title: "My Projects", isMinimized: isProjectsMinimized, onRestore: () => { setIsProjectsMinimized(false); setActiveWindow("projects"); } },
+    { id: "skills", title: "My Skills", isMinimized: isSkillsMinimized, onRestore: () => { setIsSkillsMinimized(false); setActiveWindow("skills"); } },
+    { id: "contact", title: "Contact Me", isMinimized: isContactMinimized, onRestore: () => { setIsContactMinimized(false); setActiveWindow("contact"); } },
+    { id: "readme", title: "Read Me.txt - Notepad", isMinimized: isReadmeMinimized, onRestore: () => { setIsReadmeMinimized(false); setActiveWindow("readme"); } },
+    { id: "run", title: "Run", isMinimized: isRunMinimized, onRestore: () => { setIsRunMinimized(false); setActiveWindow("run"); } },
+    { id: "properties", title: "System Properties", isMinimized: isPropertiesMinimized, onRestore: () => { setIsPropertiesMinimized(false); setActiveWindow("properties"); } },
+    { id: "settings", title: "Display Settings", isMinimized: isSettingsMinimized, onRestore: () => { setIsSettingsMinimized(false); setActiveWindow("settings"); } },
+    { id: "internet", title: "Mahmudul's Tech Blog - Microsoft Internet Explorer", isMinimized: isInternetExplorerMinimized, onRestore: () => { setIsInternetExplorerMinimized(false); setActiveWindow("internet"); } },
   ].filter(w =>
     (w.id === "ahsan.js" && isAhsanWindowOpen) ||
     (w.id === "projects" && isProjectsOpen) ||
@@ -296,6 +317,8 @@ export function Desktop() {
             setIsInternetExplorerMinimized(false);
           }}
           onMinimize={() => setIsInternetExplorerMinimized(true)}
+          onFocus={() => setActiveWindow("internet")}
+          isActive={activeWindow === "internet"}
           defaultPosition={{ x: 50, y: 50 }}
           width="800px"
           height="600px"
@@ -313,6 +336,8 @@ export function Desktop() {
             setIsAhsanMinimized(false);
           }}
           onMinimize={() => setIsAhsanMinimized(true)}
+          onFocus={() => setActiveWindow("ahsan.js")}
+          isActive={activeWindow === "ahsan.js"}
           defaultPosition={{ x: 100, y: 50 }}
           width="500px"
           height="600px"
@@ -336,6 +361,8 @@ export function Desktop() {
             setIsProjectsMinimized(false);
           }}
           onMinimize={() => setIsProjectsMinimized(true)}
+          onFocus={() => setActiveWindow("projects")}
+          isActive={activeWindow === "projects"}
           defaultPosition={{ x: 150, y: 80 }}
           width="900px"
           height="700px"
@@ -353,6 +380,8 @@ export function Desktop() {
             setIsSkillsMinimized(false);
           }}
           onMinimize={() => setIsSkillsMinimized(true)}
+          onFocus={() => setActiveWindow("skills")}
+          isActive={activeWindow === "skills"}
           defaultPosition={{ x: 200, y: 100 }}
           width="600px"
           height="500px"
@@ -370,6 +399,8 @@ export function Desktop() {
             setIsContactMinimized(false);
           }}
           onMinimize={() => setIsContactMinimized(true)}
+          onFocus={() => setActiveWindow("contact")}
+          isActive={activeWindow === "contact"}
           defaultPosition={{ x: 250, y: 120 }}
           width="400px"
           height="320px"
@@ -415,6 +446,8 @@ export function Desktop() {
             setIsReadmeMinimized(false);
           }}
           onMinimize={() => setIsReadmeMinimized(true)}
+          onFocus={() => setActiveWindow("readme")}
+          isActive={activeWindow === "readme"}
           defaultPosition={{ x: 300, y: 150 }}
           width="500px"
           height="400px"
@@ -453,6 +486,8 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
             setIsPropertiesMinimized(false);
           }}
           onMinimize={() => setIsPropertiesMinimized(true)}
+          onFocus={() => setActiveWindow("properties")}
+          isActive={activeWindow === "properties"}
           theme={theme}
         >
           <div className="p-4 space-y-4">
@@ -476,6 +511,8 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
             setIsSettingsMinimized(false);
           }}
           onMinimize={() => setIsSettingsMinimized(true)}
+          onFocus={() => setActiveWindow("settings")}
+          isActive={activeWindow === "settings"}
           width="400px"
           theme={theme}
         >
@@ -487,6 +524,7 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
             onContact={() => {
               setIsContactOpen(true);
               setIsContactMinimized(false);
+              setActiveWindow("contact");
             }}
             theme={theme}
             setTheme={setTheme}
@@ -505,6 +543,8 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
             setIsRunMinimized(false);
           }}
           onMinimize={() => setIsRunMinimized(true)}
+          onFocus={() => setActiveWindow("run")}
+          isActive={activeWindow === "run"}
           width="350px"
           theme={theme}
         >
