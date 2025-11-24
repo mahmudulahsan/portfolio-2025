@@ -6,7 +6,7 @@ export interface SkillGroup {
 export const skillGroups: SkillGroup[] = [
   {
     title: "Languages",
-    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "Python", "HTML", "Latex"]
+    skills: ["C", "C++", "Java", "JavaScript", "TypeScript", "Python", "HTML", "JSX", "Latex"]
   },
   {
     title: "Frontend",
@@ -18,6 +18,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Tools & Others",
-    skills: ["Git", "GitHub", "Azure DevOps", "Notion", "VS Code", "Web Storm", "Postman"]
+    skills: ["Git", "GitHub", "GitHub Actions", "Azure DevOps", "Heroku", "Firebase Hosting", "Firebase Auth", "Notion", "VS Code", "WebStorm", "Postman"]
   }
 ];

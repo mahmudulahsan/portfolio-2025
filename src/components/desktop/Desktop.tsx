@@ -1,7 +1,7 @@
 "use client";
 
 import { contactInfo } from "@/data/contact";
-import { Mail } from "lucide-react";
+import { Coffee, CupSoda, Mail } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BootScreen } from "./BootScreen";
 import { Clippy } from "./Clippy";
@@ -36,7 +36,7 @@ export function Desktop() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isReadmeOpen, setIsReadmeOpen] = useState(false);
   const [isInternetExplorerOpen, setIsInternetExplorerOpen] = useState(false);
-  
+
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
@@ -203,7 +203,7 @@ export function Desktop() {
     { id: "properties", title: "System Properties", isMinimized: isPropertiesMinimized, onRestore: () => setIsPropertiesMinimized(false) },
     { id: "settings", title: "Display Settings", isMinimized: isSettingsMinimized, onRestore: () => setIsSettingsMinimized(false) },
     { id: "internet", title: "Mahmudul's Tech Blog - Microsoft Internet Explorer", isMinimized: isInternetExplorerMinimized, onRestore: () => setIsInternetExplorerMinimized(false) },
-  ].filter(w => 
+  ].filter(w =>
     (w.id === "ahsan.js" && isAhsanWindowOpen) ||
     (w.id === "projects" && isProjectsOpen) ||
     (w.id === "skills" && isSkillsOpen) ||
@@ -241,48 +241,48 @@ export function Desktop() {
     >
       {/* Desktop Icons Area */}
       <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-col gap-3 sm:gap-6 flex-wrap h-[calc(100vh-40px)] content-start">
-          <DesktopIcon
-            label="My Skills"
-            selected={selectedIcon === "skills"}
-            onClick={() => handleIconClick("skills")}
-            onDoubleClick={() => handleIconDoubleClick("skills")}
-            icon={<img src="/skills.ico" alt="Skills" className="h-full w-full object-contain drop-shadow-md" />}
-          />
-          <DesktopIcon
-            label="My Projects"
-            selected={selectedIcon === "projects"}
-            onClick={() => handleIconClick("projects")}
-            onDoubleClick={() => handleIconDoubleClick("projects")}
-            icon={<img src="/project.ico" alt="Projects" className="h-full w-full object-contain drop-shadow-md" />}
-          />
-          <DesktopIcon
-            label="My Portfolio"
-            selected={selectedIcon === "ahsan.js"}
-            onClick={() => handleIconClick("ahsan.js")}
-            onDoubleClick={() => handleIconDoubleClick("ahsan.js")}
-            icon={<img src="/mycomputer.ico" alt="My Computer" className="h-full w-full object-contain drop-shadow-md" />}
-          />
-          <DesktopIcon
-            label="Contact Me"
-            selected={selectedIcon === "contact"}
-            onClick={() => handleIconClick("contact")}
-            onDoubleClick={() => handleIconDoubleClick("contact")}
-            icon={<img src="/contact.ico" alt="Contact" className="h-full w-full object-contain drop-shadow-md" />}
-          />
-          <DesktopIcon
-            label="readme.txt"
-            selected={selectedIcon === "readme"}
-            onClick={() => handleIconClick("readme")}
-            onDoubleClick={() => handleIconDoubleClick("readme")}
-            icon={<img src="/readme.ico" alt="Readme" className="h-full w-full object-contain drop-shadow-md" />}
-          />
-          <DesktopIcon
-            label="Internet Explorer"
-            selected={selectedIcon === "internet"}
-            onClick={() => handleIconClick("internet")}
-            onDoubleClick={() => handleIconDoubleClick("internet")}
-            icon={<img src="/ie.ico" alt="Internet Explorer" className="h-full w-full object-contain drop-shadow-md" />}
-          />
+        <DesktopIcon
+          label="My Skills"
+          selected={selectedIcon === "skills"}
+          onClick={() => handleIconClick("skills")}
+          onDoubleClick={() => handleIconDoubleClick("skills")}
+          icon={<img src="/skills.ico" alt="Skills" className="h-full w-full object-contain drop-shadow-md" />}
+        />
+        <DesktopIcon
+          label="My Projects"
+          selected={selectedIcon === "projects"}
+          onClick={() => handleIconClick("projects")}
+          onDoubleClick={() => handleIconDoubleClick("projects")}
+          icon={<img src="/project.ico" alt="Projects" className="h-full w-full object-contain drop-shadow-md" />}
+        />
+        <DesktopIcon
+          label="My Portfolio"
+          selected={selectedIcon === "ahsan.js"}
+          onClick={() => handleIconClick("ahsan.js")}
+          onDoubleClick={() => handleIconDoubleClick("ahsan.js")}
+          icon={<img src="/mycomputer.ico" alt="My Computer" className="h-full w-full object-contain drop-shadow-md" />}
+        />
+        <DesktopIcon
+          label="Contact Me"
+          selected={selectedIcon === "contact"}
+          onClick={() => handleIconClick("contact")}
+          onDoubleClick={() => handleIconDoubleClick("contact")}
+          icon={<img src="/contact.ico" alt="Contact" className="h-full w-full object-contain drop-shadow-md" />}
+        />
+        <DesktopIcon
+          label="readme.txt"
+          selected={selectedIcon === "readme"}
+          onClick={() => handleIconClick("readme")}
+          onDoubleClick={() => handleIconDoubleClick("readme")}
+          icon={<img src="/readme.ico" alt="Readme" className="h-full w-full object-contain drop-shadow-md" />}
+        />
+        <DesktopIcon
+          label="Internet Explorer"
+          selected={selectedIcon === "internet"}
+          onClick={() => handleIconClick("internet")}
+          onDoubleClick={() => handleIconDoubleClick("internet")}
+          icon={<img src="/ie.ico" alt="Internet Explorer" className="h-full w-full object-contain drop-shadow-md" />}
+        />
       </div>
 
       {/* Windows */}
@@ -318,11 +318,11 @@ export function Desktop() {
           height="600px"
           theme={theme}
         >
-          <ProfileViewer 
+          <ProfileViewer
             onClose={() => {
               setIsAhsanWindowOpen(false);
               setIsAhsanMinimized(false);
-            }} 
+            }}
             onDownloadResume={() => setIsDownloadOpen(true)}
           />
         </Window>
@@ -390,10 +390,10 @@ export function Desktop() {
                     <Mail className="w-4 h-4 text-[#003399]" />
                   ) : (
                     <span className="font-bold w-4 text-center text-[#003399] text-xs">
-                      {link.id === 'linkedin' ? 'IN' : 
-                       link.id === 'github' ? 'GH' : 
-                       link.id === 'problem-solving' ? 'LC' : 
-                       link.id === 'youtube' ? 'YT' : '..'}
+                      {link.id === 'linkedin' ? 'IN' :
+                        link.id === 'github' ? 'GH' :
+                          link.id === 'problem-solving' ? 'LC' :
+                            link.id === 'youtube' ? 'YT' : '..'}
                     </span>
                   )}
                   <a href={link.href} target="_blank" className="text-blue-600 hover:underline">{link.value}</a>
@@ -428,15 +428,17 @@ export function Desktop() {
               <span>View</span>
               <span>Help</span>
             </div>
-            <textarea 
-              className="flex-1 p-2 resize-none outline-none" 
-              readOnly 
+            <textarea
+              className="flex-1 p-2 resize-none outline-none"
+              readOnly
               defaultValue={`I’m Mahmudul Ahsan from Dhaka, Bangladesh, a graduate of CSE, RUET and currently working as a Software Engineer at MyMedicalHub International. I love thinking creatively and enjoy bringing engineering concepts into real-life applications.
 
-My journey with computers began almost 20 years ago with Windows XP, a system I still feel deeply nostalgic about. From Road Rash to SkyRoads and countless games from those classic mixed DVDs in friday-morning, Windows XP shaped many of my earliest tech memories. That’s why this website is designed to look and feel like Windows XP, my all-time favorite OS.
+      My journey with computers began almost 20 years ago with Windows XP, a system I still feel deeply nostalgic about. From Road Rash to SkyRoads and countless games from those classic mixed DVDs in friday-morning, Windows XP shaped many of my earliest tech memories. That’s why this website is designed to look and feel like Windows XP, my all-time favorite OS.
 
 Feel free to explore my skills, experience, and projects—all presented through a nostalgic XP-style interface.
-`}
+
+This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
+              `}
             />
           </div>
         </Window>
@@ -477,7 +479,7 @@ Feel free to explore my skills, experience, and projects—all presented through
           width="400px"
           theme={theme}
         >
-          <DisplayProperties 
+          <DisplayProperties
             onClose={() => {
               setIsSettingsOpen(false);
               setIsSettingsMinimized(false);
@@ -509,7 +511,7 @@ Feel free to explore my skills, experience, and projects—all presented through
           <div className="p-4 space-y-4 bg-[#ECE9D8] font-tahoma">
             <div className="flex gap-4 items-start">
               <div className="shrink-0">
-                 <img src="/run.png" alt="Run" className="w-8 h-8" />
+                <img src="/run.png" alt="Run" className="w-8 h-8" />
               </div>
               <p className="text-xs text-black leading-relaxed">Type any link, Portfolio OS will open it for you.</p>
             </div>
@@ -531,7 +533,7 @@ Feel free to explore my skills, experience, and projects—all presented through
               />
             </div>
             <div className="flex justify-end gap-2 pt-4">
-              <button 
+              <button
                 onClick={() => {
                   if (runCommand) {
                     window.open(runCommand.startsWith("http") ? runCommand : `https://${runCommand}`, "_blank");
@@ -542,7 +544,7 @@ Feel free to explore my skills, experience, and projects—all presented through
               >
                 OK
               </button>
-              <button 
+              <button
                 onClick={() => setIsRunOpen(false)}
                 className="px-4 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-xs"
               >
@@ -581,12 +583,12 @@ Feel free to explore my skills, experience, and projects—all presented through
       <Clippy />
 
       {/* Copyright Text */}
-      <div className="absolute bottom-10 right-4 text-white/90 font-tahoma text-sm drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] select-none pointer-events-none z-0">
-        © Mahmudul Ahsan | Built with a cup of nostalgia
+      <div className="absolute bottom-10 right-4 text-white/90 font-tahoma text-sm drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] select-none pointer-events-none z-0 flex items-center gap-1">
+        © Mahmudul Ahsan | Built with a cup of nostalgia <Coffee className="w-4 h-4 inline-block" />
       </div>
 
-      <Taskbar 
-        onSettingsClick={() => setIsSettingsOpen(true)} 
+      <Taskbar
+        onSettingsClick={() => setIsSettingsOpen(true)}
         onMenuAction={handleMenuAction}
         minimizedWindows={minimizedWindows}
         theme={theme}
