@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { portfolioConfig } from "@/data/config";
 import {
     Briefcase,
     Cpu,
@@ -102,12 +103,12 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
       >
         <div className="h-10 w-10 rounded border-2 border-white/40 bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-md overflow-hidden p-0">
           <Avatar className="h-full w-full rounded-none">
-            <AvatarImage src="/pro.jpg" alt="User" className="object-cover" />
-            <AvatarFallback className="rounded-none">MA</AvatarFallback>
+            <AvatarImage src={portfolioConfig.owner.profileImage} alt="User" className="object-cover" />
+            <AvatarFallback className="rounded-none">{portfolioConfig.owner.initials}</AvatarFallback>
           </Avatar>
         </div>
         <div className="flex-1">
-          <p className="font-bold text-sm drop-shadow-md">Mahmudul Ahsan</p>
+          <p className="font-bold text-sm drop-shadow-md">{portfolioConfig.owner.name}</p>
         </div>
       </div>
 

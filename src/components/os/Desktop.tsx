@@ -7,6 +7,7 @@ import { ProjectsViewer } from "@/components/apps/ProjectsViewer";
 import { SkillsViewer } from "@/components/apps/SkillsViewer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { portfolioConfig } from "@/data/config";
 import { contactInfo } from "@/data/contact";
 import { Coffee, Mail } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -495,10 +496,10 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
           <div className="p-4 space-y-4">
             <h2 className="text-lg font-bold border-b pb-2">System Information</h2>
             <div className="space-y-2 text-sm">
-              <p><strong>Computer Name:</strong> MAHMUDUL-PC</p>
-              <p><strong>Operating System:</strong> Portfolio OS XP</p>
-              <p><strong>Processor:</strong> Full Stack Developer Brain</p>
-              <p><strong>Installed Memory:</strong> Unlimited Creativity</p>
+              <p><strong>Computer Name:</strong> {portfolioConfig.system.computerName}</p>
+              <p><strong>Operating System:</strong> {portfolioConfig.system.osName}</p>
+              <p><strong>Processor:</strong> {portfolioConfig.system.processor}</p>
+              <p><strong>Installed Memory:</strong> {portfolioConfig.system.memory}</p>
             </div>
           </div>
         </Window>
@@ -628,7 +629,7 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
 
       {/* Copyright Text */}
       <div className="absolute bottom-10 right-4 text-white/90 font-tahoma text-sm drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] select-none pointer-events-none z-0 flex items-center gap-1">
-        © Mahmudul Ahsan | Built with a cup of nostalgia <Coffee className="w-4 h-4 inline-block" />
+        {portfolioConfig.footer.text} {portfolioConfig.footer.showCoffeeIcon && <Coffee className="w-4 h-4 inline-block" />}
       </div>
 
       <Taskbar

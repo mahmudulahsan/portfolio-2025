@@ -1,3 +1,15 @@
+/**
+ * Research & Publications
+ * 
+ * Add your research work, publications, and academic projects here.
+ * These will be displayed in the "My Profile" window.
+ * 
+ * Each research item should include:
+ * - title: Publication type and venue (e.g., "Conference Paper | ICML 2024")
+ * - subtitle: Research title
+ * - description: Brief description of the research
+ */
+
 export interface Research {
   title: string;
   subtitle: string;

@@ -1,7 +1,17 @@
+/**
+ * Contact Information
+ * 
+ * Update your contact details and social media links here.
+ * These will appear in the "Contact Me" window.
+ */
+
 export const contactInfo = {
   email: "mamahi1998@gmail.com",
   phone: "+8801521561664",
   address: "Dhaka, Bangladesh",
+  
+  // Social Media & Professional Links
+  // You can add, remove, or modify these links as needed
   links: [
     {
       id: "email",

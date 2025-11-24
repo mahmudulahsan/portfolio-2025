@@ -1,3 +1,18 @@
+/**
+ * Projects Configuration
+ * 
+ * Add your projects here. Each project should include:
+ * - id: Unique identifier (lowercase, no spaces)
+ * - title: Project name
+ * - type: Type of project (e.g., "Web Application", "Mobile App", "Chrome Extension")
+ * - description: Brief description of the project
+ * - tech: Technologies used (comma-separated string)
+ * - link: Live demo URL (leave empty "" if not available)
+ * - category: One of "Real Life Projects", "Hobby Projects", or "Landing Pages"
+ * 
+ * Projects will be grouped by category in the "My Projects" window.
+ */
+
 export interface Project {
   id: string;
   title: string;
@@ -13,7 +28,7 @@ export const projects: Project[] = [
     id: "mypainlog",
     title: "Atlas Athlete",
     type: "Web Application",
-    description: "Contributed to building AI-integrated web applications, implementing component-based design and integrating au-tomated user interactions via voice. Worked on human annotation modules for AI workflows and participated in modernizing legacy codebases into newer, efficient design technologies",
+    description: "Contributed to building AI-integrated web applications, implementing component-based design and integrating automated user interactions via voice. Worked on human annotation modules for AI workflows and participated in modernizing legacy codebases into newer, efficient design technologies",
     tech: "Javascript, Reactjs, Redux, SCSS",
     link: "https://www.atlasathlete.ai/",
     category: "Real Life Projects"

@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { portfolioConfig } from "@/data/config";
 
 interface LockScreenProps {
   onLogin: () => void;
@@ -50,17 +51,17 @@ export function LockScreen({ onLogin }: LockScreenProps) {
             >
               <div className="relative h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded border-2 border-[#FEEFA6] bg-gradient-to-br from-[#F0F0F0] to-[#C0C0C0] flex items-center justify-center shadow-lg overflow-hidden group-hover:border-[#FFF8D4] p-0">
                 <Avatar className="h-full w-full rounded-none">
-                  <AvatarImage src="/pro.jpg" alt="User" className="object-cover" />
-                  <AvatarFallback className="rounded-none">MA</AvatarFallback>
+                  <AvatarImage src={portfolioConfig.owner.profileImage} alt="User" className="object-cover" />
+                  <AvatarFallback className="rounded-none">{portfolioConfig.owner.initials}</AvatarFallback>
                 </Avatar>
                 <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="flex flex-col items-start text-left">
                 <span className="text-xl sm:text-2xl font-medium text-white group-hover:text-[#FFF8D4] drop-shadow-md">
-                  Mahmudul Ahsan
+                  {portfolioConfig.owner.name}
                 </span>
                 <span className="text-xs sm:text-sm text-[#ABC0EE] group-hover:text-white">
-                  Full Stack Developer
+                  {portfolioConfig.owner.title}
                 </span>
               </div>
             </Button>

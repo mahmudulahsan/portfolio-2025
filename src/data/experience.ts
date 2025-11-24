@@ -1,3 +1,16 @@
+/**
+ * Work Experience
+ * 
+ * Add your professional work experience here.
+ * Each entry should include:
+ * - company: Company name
+ * - role: Your job title
+ * - period: Duration (e.g., "Jan 2023 - Present")
+ * - points: Array of key responsibilities or achievements
+ * 
+ * List experiences in reverse chronological order (most recent first).
+ */
+
 export interface Experience {
   company: string;
   role: string;

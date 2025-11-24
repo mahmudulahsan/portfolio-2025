@@ -1,3 +1,13 @@
+/**
+ * Skills Configuration
+ * 
+ * Define your technical skills organized by categories.
+ * Each skill group will be displayed as a separate section in the "My Skills" window.
+ * 
+ * Categories can be: Languages, Frontend, Backend & DB, Tools & Others, etc.
+ * Feel free to add, remove, or rename categories as needed.
+ */
+
 export interface SkillGroup {
   title: string;
   skills: string[];

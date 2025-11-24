@@ -1,3 +1,15 @@
+/**
+ * Achievements & Certifications
+ * 
+ * Add your achievements, awards, and certifications here.
+ * These will be displayed in the "My Profile" window.
+ * 
+ * Each achievement should include:
+ * - title: Achievement or certification name
+ * - description: Brief description or issuing organization
+ * - link: (Optional) URL to certificate or proof
+ */
+
 export interface Achievement {
   title: string;
   description: string;
