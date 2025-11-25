@@ -7,13 +7,14 @@ import { useState } from "react";
 
 interface DisplayPropertiesProps {
   onClose: () => void;
+  onContact: () => void;
   theme: "Blue" | "Olive" | "Silver";
   setTheme: (theme: "Blue" | "Olive" | "Silver") => void;
   wallpaper: string;
   setWallpaper: (wallpaper: string) => void;
 }
 
-export function DisplayProperties({ onClose, theme, setTheme, wallpaper, setWallpaper }: DisplayPropertiesProps) {
+export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpaper, setWallpaper }: DisplayPropertiesProps) {
   const [pendingTheme, setPendingTheme] = useState(theme);
   const [pendingWallpaper, setPendingWallpaper] = useState(wallpaper);
 
