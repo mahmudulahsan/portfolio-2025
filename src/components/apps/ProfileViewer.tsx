@@ -72,8 +72,8 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
               key={tab.id}
               value={tab.id}
               className={cn(
-                "px-3 py-1 rounded-t-[3px] border-t border-l border-r border-[#919B9C] relative top-[1px] rounded-b-none border-b-0 h-auto shadow-none",
-                "data-[state=active]:bg-white data-[state=active]:z-10 data-[state=active]:font-bold data-[state=active]:pb-1.5 data-[state=active]:shadow-none",
+                "px-3 py-1.5 rounded-t-[3px] border-t border-l border-r border-[#919B9C] relative top-[1px] rounded-b-none border-b-0 h-auto shadow-none",
+                "data-[state=active]:bg-white data-[state=active]:z-10 data-[state=active]:font-bold data-[state=active]:shadow-none",
                 "bg-[#ECE9D8] text-[#444] hover:bg-[#F3F3F3] data-[state=inactive]:hover:bg-[#F3F3F3]"
               )}
             >
@@ -91,8 +91,8 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
               <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
                 <legend className="px-1 text-[#003399] font-medium">Summary</legend>
                 <p className="leading-relaxed text-black">
-                  Passionate Jr. Software Engineer with a strong foundation in Computer Science. 
-                  Experienced in building AI-integrated web applications and modernizing legacy codebases. 
+                  Passionate Jr. Software Engineer with a strong foundation in Computer Science.
+                  Experienced in building AI-integrated web applications and modernizing legacy codebases.
                   Solved 500+ algorithmic problems across various platforms.
                 </p>
               </fieldset>
@@ -113,17 +113,17 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                 <legend className="px-1 text-[#003399] font-medium">Contact & Profiles</legend>
                 <div className="grid grid-cols-2 gap-2">
                   {contactInfo.links.map((link) => {
-                     let Icon = Mail;
-                     if (link.id === 'linkedin') Icon = Linkedin;
-                     if (link.id === 'github') Icon = Github;
-                     if (link.id === 'codeforces') Icon = Code;
-                     if (link.id === 'youtube') Icon = Youtube;
+                    let Icon = Mail;
+                    if (link.id === 'linkedin') Icon = Linkedin;
+                    if (link.id === 'github') Icon = Github;
+                    if (link.id === 'codeforces') Icon = Code;
+                    if (link.id === 'youtube') Icon = Youtube;
 
-                     return (
-                       <a key={link.id} href={link.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                         <Icon className="h-3.5 w-3.5" /> {link.value}
-                       </a>
-                     );
+                    return (
+                      <a key={link.id} href={link.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
+                        <Icon className="h-3.5 w-3.5" /> {link.value}
+                      </a>
+                    );
                   })}
                 </div>
               </fieldset>
@@ -164,9 +164,9 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                           <h3 className="font-bold text-[#003399] text-sm flex items-center gap-2">
                             {project.title}
                             {project.link && (
-                              <a 
-                                href={project.link} 
-                                target="_blank" 
+                              <a
+                                href={project.link}
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs font-normal text-blue-600 hover:underline"
                               >
@@ -205,9 +205,9 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                       {achievement.link && (
                         <>
                           {" - "}
-                          <a 
-                            href={achievement.link} 
-                            target="_blank" 
+                          <a
+                            href={achievement.link}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:underline"
                           >
@@ -236,7 +236,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
 
       {/* Footer */}
       <div className="p-3 pt-2 flex justify-end gap-2">
-        <button 
+        <button
           onClick={onClose}
           className="px-4 py-1 bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner text-black min-w-[70px]"
         >

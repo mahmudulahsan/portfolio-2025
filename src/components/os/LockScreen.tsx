@@ -20,7 +20,7 @@ export function LockScreen({ onLogin }: LockScreenProps) {
       <div className="flex-1 bg-[#5A7EDC] flex items-center justify-center relative overflow-hidden px-4">
         {/* Background Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#5A7EDC] via-[#6487E2] to-[#5A7EDC]" />
-        
+
         {/* Center Split Line - Hidden on mobile */}
         <div className="hidden md:block absolute left-1/2 top-1/2 -translate-y-1/2 h-[60%] w-[1px] bg-gradient-to-b from-transparent via-[#8FA6E9] to-transparent" />
 
@@ -57,8 +57,9 @@ export function LockScreen({ onLogin }: LockScreenProps) {
                 <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="flex flex-col items-start text-left">
-                <span className="text-xl sm:text-2xl font-medium text-white group-hover:text-[#FFF8D4] drop-shadow-md">
+                <span className="text-xl sm:text-2xl font-medium text-white group-hover:text-[#FFF8D4] drop-shadow-md flex items-center gap-1.5">
                   {portfolioConfig.owner.name}
+                  <span className="text-sm opacity-80">©</span>
                 </span>
                 <span className="text-xs sm:text-sm text-[#ABC0EE] group-hover:text-white">
                   {portfolioConfig.owner.title}
@@ -72,7 +73,7 @@ export function LockScreen({ onLogin }: LockScreenProps) {
       {/* Bottom Bar */}
       <div className="h-auto sm:h-20 md:h-24 bg-[#00309C] border-t-2 border-[#E6AA2E] flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 md:px-8 py-3 sm:py-0 gap-3 sm:gap-0 relative">
         <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center sm:justify-start">
-          <Button 
+          <Button
             variant="ghost"
             className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-white/10 transition-colors text-[#ABC0EE] hover:text-white text-sm sm:text-base h-auto"
             onClick={() => window.close()}
@@ -85,9 +86,12 @@ export function LockScreen({ onLogin }: LockScreenProps) {
         </div>
 
         <div className="text-[#ABC0EE] text-xs sm:text-sm text-center sm:text-right">
-          This is a Windows XP themed portfolio website.<br className="hidden sm:block"/>
-          <span className="hidden sm:inline">Click my name above to explore my projects, skills, and experience.</span>
-          <span className="sm:hidden">Click above to explore.</span>
+          <div className="hidden sm:block">
+            <p>Windows XP themed portfolio website</p>
+            <p>Login to explore my projects, skills, and experience</p>
+            <p className="mt-1 text-[10px] opacity-75">© {new Date().getFullYear()} {portfolioConfig.owner.name}. All rights reserved.</p>
+          </div>
+          <span className="sm:hidden">Click above to explore</span>
         </div>
       </div>
     </div>

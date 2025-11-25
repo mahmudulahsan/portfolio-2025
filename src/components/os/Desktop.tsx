@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { portfolioConfig } from "@/data/config";
 import { contactInfo } from "@/data/contact";
-import { Coffee, Mail } from "lucide-react";
+import { Coffee, Mail, Phone } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { BootScreen } from "./BootScreen";
 import { Clippy } from "./Clippy";
@@ -406,12 +406,14 @@ export function Desktop() {
           isActive={activeWindow === "contact"}
           defaultPosition={{ x: 250, y: 120 }}
           width="400px"
-          height="320px"
+          height="400px"
           theme={theme}
         >
           <div className="p-4 bg-white h-full font-tahoma flex flex-col">
             <div className="flex items-center gap-4 mb-4 shrink-0">
-              <img src="/globe.svg" className="w-12 h-12" />
+              <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-md">
+                <Phone className="w-7 h-7 text-white" />
+              </div>
               <div>
                 <h2 className="text-lg font-bold">Contact Information</h2>
                 <p className="text-sm text-gray-600">Get in touch with me</p>
@@ -420,14 +422,11 @@ export function Desktop() {
             <div className="space-y-3 text-sm flex-1">
               {contactInfo.links.map((link) => (
                 <div key={link.id} className="flex items-center gap-2">
-                  {link.id === 'email' ? (
+                  {link.icon === 'email' ? (
                     <Mail className="w-4 h-4 text-[#003399]" />
                   ) : (
                     <span className="font-bold w-4 text-center text-[#003399] text-xs">
-                      {link.id === 'linkedin' ? 'IN' :
-                        link.id === 'github' ? 'GH' :
-                          link.id === 'problem-solving' ? 'LC' :
-                            link.id === 'youtube' ? 'YT' : '..'}
+                      {link.icon}
                     </span>
                   )}
                   <a href={link.href} target="_blank" className="text-blue-600 hover:underline">{link.value}</a>
