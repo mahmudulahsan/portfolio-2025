@@ -3,15 +3,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { portfolioConfig } from "@/data/config";
 import {
-    Briefcase,
-    Cpu,
-    Download,
-    HelpCircle,
-    LogOut,
-    Mail,
-    PlayCircle,
-    Settings,
-    User
+  Briefcase,
+  Cpu,
+  Download,
+  HelpCircle,
+  LogOut,
+  Mail,
+  PlayCircle,
+  Settings,
+  User
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -46,33 +46,33 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
   if (!isOpen) return null;
 
   const leftMenuItems = [
-    { 
-      label: "My Profile", 
-      icon: User, 
+    {
+      label: "My Profile",
+      icon: User,
       action: "ahsan.js",
       description: "View resume & info"
     },
-    { 
-      label: "My Projects", 
-      icon: Briefcase, 
+    {
+      label: "My Projects",
+      icon: Briefcase,
       action: "projects",
       description: "Browse my work"
     },
-    { 
-      label: "My Skills", 
-      icon: Cpu, 
+    {
+      label: "My Skills",
+      icon: Cpu,
       action: "skills",
       description: "Technical expertise"
     },
-    { 
-      label: "Contact Me", 
-      icon: Mail, 
+    {
+      label: "Contact Me",
+      icon: Mail,
       action: "contact",
       description: "Get in touch"
     },
-    { 
-      label: "Download Resume", 
-      icon: Download, 
+    {
+      label: "Download Resume",
+      icon: Download,
       action: "download_resume",
       description: "Get my CV"
     },
@@ -94,7 +94,7 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
       }}
     >
       {/* User Profile Header */}
-      <div 
+      <div
         className="flex items-center gap-3 px-3 py-2 text-white border-b border-[#003399]"
         style={{
           background: "linear-gradient(to right, #166ADE 0%, #207CF6 100%)",
@@ -142,7 +142,7 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
         </div>
 
         {/* Right Column - All Programs & System */}
-        <div 
+        <div
           className="w-36 sm:w-44 p-1.5 flex flex-col"
           style={{
             background: "#D3E5FA",
@@ -167,11 +167,11 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
               );
             })}
           </div>
-          
+
           <div className="flex-1" /> {/* Spacer */}
 
           <div className="my-1 h-[1px] bg-gradient-to-r from-transparent via-[#95BDEE] to-transparent" />
-          
+
           <div className="flex items-center gap-1 justify-end pt-1">
             <button
               onClick={() => {
@@ -191,12 +191,13 @@ export function StartMenu({ isOpen, onClose, onItemClick }: StartMenuProps) {
                 onItemClick("shutdown");
                 onClose();
               }}
-              className="group flex items-center gap-1.5 px-2 py-1 rounded hover:bg-[#316AC5] hover:text-white transition-colors"
+              disabled
+              className="group flex items-center gap-1.5 px-2 py-1 rounded opacity-50 cursor-not-allowed"
             >
               <div className="bg-[#E81123] p-0.5 rounded-sm">
                 <LogOut className="h-3 w-3 text-white" />
               </div>
-              <span className="text-xs font-medium text-[#00136B] group-hover:text-white">Turn Off Computer</span>
+              <span className="text-xs font-medium text-[#00136B]">Turn Off Computer</span>
             </button>
           </div>
         </div>

@@ -79,6 +79,16 @@ export function Desktop() {
     localStorage.setItem("wallpaper", wallpaper);
   }, [wallpaper]);
 
+  // Auto-open Profile Viewer on first login
+  useEffect(() => {
+    const profileViewerClosed = localStorage.getItem("profileViewerClosed");
+    if (profileViewerClosed !== "true" && !isLocked) {
+      setIsAhsanWindowOpen(true);
+      setIsAhsanMinimized(false);
+      setActiveWindow("ahsan.js");
+    }
+  }, [isLocked]);
+
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [bgColor, setBgColor] = useState("#5A8FD3");
   const [contextMenu, setContextMenu] = useState<{
@@ -337,6 +347,7 @@ export function Desktop() {
           onClose={() => {
             setIsAhsanWindowOpen(false);
             setIsAhsanMinimized(false);
+            localStorage.setItem("profileViewerClosed", "true");
           }}
           onMinimize={() => setIsAhsanMinimized(true)}
           onFocus={() => setActiveWindow("ahsan.js")}
@@ -350,6 +361,7 @@ export function Desktop() {
             onClose={() => {
               setIsAhsanWindowOpen(false);
               setIsAhsanMinimized(false);
+              localStorage.setItem("profileViewerClosed", "true");
             }}
             onDownloadResume={() => setIsDownloadOpen(true)}
           />

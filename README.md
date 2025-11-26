@@ -2,7 +2,7 @@
 
 A nostalgic, interactive portfolio website built with modern web technologies, designed to replicate the classic **Windows XP** desktop experience.
 
-![Project Preview](/public/og-image.png)
+![Project Preview](/public/xp.png)
 
 ## ✨ Features
 
