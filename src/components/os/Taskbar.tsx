@@ -17,11 +17,11 @@ interface TaskbarProps {
   onSettingsClick: () => void;
   onMenuAction: (action: string) => void;
   minimizedWindows?: MinimizedWindow[];
-  theme?: "Blue" | "Olive" | "Silver";
+  theme?: "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
 }
 
-export function Taskbar({ 
-  onSettingsClick, 
+export function Taskbar({
+  onSettingsClick,
   onMenuAction,
   minimizedWindows = [],
   theme = "Blue"
@@ -45,10 +45,10 @@ export function Taskbar({
   const handleStartItemClick = (action: string) => {
     console.log("Clicked:", action);
     if (action === "shutdown") {
-        window.close();
-        alert("It's now safe to turn off your computer.");
+      window.close();
+      alert("It's now safe to turn off your computer.");
     } else if (action === "settings") {
-        onSettingsClick();
+      onSettingsClick();
     }
   };
 
@@ -64,26 +64,46 @@ export function Taskbar({
     Silver: {
       background: "linear-gradient(to bottom, #C5C6C9 0%, #DCDCDC 9%, #C5C6C9 18%, #C5C6C9 92%, #9A9A9D 100%)",
       border: "#7F7F7F"
+    },
+    Metallic: {
+      background: "linear-gradient(to bottom, #8B7FB8 0%, #B5A8D6 9%, #8B7FB8 18%, #8B7FB8 92%, #6A5F8C 100%)",
+      border: "#6A5F8C"
+    },
+    Homestead: {
+      background: "linear-gradient(to bottom, #C1A875 0%, #D4C19C 9%, #C1A875 18%, #C1A875 92%, #9A8359 100%)",
+      border: "#9A8359"
+    },
+    EnergyBlue: {
+      background: "linear-gradient(to bottom, #0099FF 0%, #33B5FF 9%, #0099FF 18%, #0099FF 92%, #0077CC 100%)",
+      border: "#0077CC"
+    },
+    NavyDark: {
+      background: "linear-gradient(to bottom, #1a2332 0%, #2d3e50 9%, #1a2332 18%, #1a2332 92%, #0f1419 100%)",
+      border: "#0f1419"
+    },
+    BlackDark: {
+      background: "linear-gradient(to bottom, #1c1c1c 0%, #2d2d2d 9%, #1c1c1c 18%, #1c1c1c 92%, #0a0a0a 100%)",
+      border: "#0a0a0a"
     }
   };
 
   return (
-    <div 
-      className="fixed bottom-0 left-0 right-0 h-8 sm:h-10 flex items-center justify-between px-0.5 sm:px-1 z-50"
+    <div
+      className="fixed bottom-0 left-0 right-0 h-8 sm:h-10 flex items-center justify-between px-0.5 sm:px-1 z-[9998]"
       style={{
         background: themeStyles[theme].background,
         borderTop: `1px solid ${themeStyles[theme].border}`
       }}
     >
-      <StartMenu 
-        isOpen={isStartOpen} 
-        onClose={() => setIsStartOpen(false)} 
+      <StartMenu
+        isOpen={isStartOpen}
+        onClose={() => setIsStartOpen(false)}
         onItemClick={(action) => {
           handleStartItemClick(action);
           onMenuAction(action);
         }}
       />
-      
+
       <div className="flex items-center gap-1 sm:gap-2 h-full py-0.5 sm:py-1 flex-1 overflow-hidden">
         <Button
           id="start-button"
@@ -96,8 +116,8 @@ export function Taskbar({
             "border border-[#2d6b2d] p-0"
           )}
           style={{
-            boxShadow: isStartOpen 
-              ? "inset 0 2px 4px rgba(0,0,0,0.3)" 
+            boxShadow: isStartOpen
+              ? "inset 0 2px 4px rgba(0,0,0,0.3)"
               : "0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3)"
           }}
         >
@@ -109,7 +129,7 @@ export function Taskbar({
           <span className="drop-shadow-sm hidden xs:inline sm:inline">Start</span>
         </Button>
         <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
-        
+
         {/* Quick Launch */}
         <div className="flex items-center px-1 sm:px-2 gap-1">
           <Button
@@ -124,7 +144,7 @@ export function Taskbar({
         </div>
 
         <div className="h-4 sm:h-6 w-[1px] bg-[#1941A5] mx-0.5 sm:mx-1 flex-shrink-0" />
-        
+
         {/* Minimized Window Buttons */}
         {minimizedWindows.map((window) => (
           <Button
@@ -153,8 +173,8 @@ export function Taskbar({
         style={{
           background: "linear-gradient(to bottom, #1CB0F6 0%, #1290D9 50%, #1CB0F6 100%)",
           border: "1px solid #0831D9",
-          boxShadow: isCalendarOpen 
-            ? "inset 0 2px 4px rgba(0,0,0,0.3)" 
+          boxShadow: isCalendarOpen
+            ? "inset 0 2px 4px rgba(0,0,0,0.3)"
             : "inset 0 1px 0 rgba(255,255,255,0.2)"
         }}
       >

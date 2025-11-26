@@ -90,7 +90,7 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.`
 
   // Footer
   footer: {
-    text: "© Mahmudul Ahsan | Built with a cup of nostalgia",
-    showCoffeeIcon: true,
+    text: "© Mahmudul Ahsan",
+    showCoffeeIcon: false,
   },
 };

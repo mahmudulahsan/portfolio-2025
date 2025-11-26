@@ -21,11 +21,20 @@ import { Taskbar } from "./Taskbar";
 import { Window } from "./Window";
 
 export function Desktop() {
-  const [isBooting, setIsBooting] = useState(true);
+  const [isBooting, setIsBooting] = useState(false);
   const [isLocked, setIsLocked] = useState(true);
 
   useEffect(() => {
+    // Check if user has visited before
+    const hasVisited = localStorage.getItem("hasVisited");
     const locked = localStorage.getItem("isLocked");
+
+    if (!hasVisited) {
+      // First visit - show boot screen
+      setIsBooting(true);
+      localStorage.setItem("hasVisited", "true");
+    }
+
     if (locked === "false") {
       setIsLocked(false);
     }
@@ -61,11 +70,11 @@ export function Desktop() {
   // Z-index management for window stacking
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
 
-  const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver">("Blue");
+  const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark">("Blue");
   const [wallpaper, setWallpaper] = useState("/wallpaper.jpeg");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "Blue" | "Olive" | "Silver";
+    const savedTheme = localStorage.getItem("theme") as "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
     const savedWallpaper = localStorage.getItem("wallpaper");
     if (savedTheme) setTheme(savedTheme);
     if (savedWallpaper) setWallpaper(savedWallpaper);
@@ -567,7 +576,7 @@ This website is developed using Next.js, TypeScript Tailwind CSS and shadcn ui.
               <div className="shrink-0">
                 <img src="/run.png" alt="Run" className="w-8 h-8" />
               </div>
-              <p className="text-xs text-black leading-relaxed">Type any link, Portfolio OS will open it for you.</p>
+              <p className="text-xs text-black leading-relaxed">Type any link to open it in a new tab.</p>
             </div>
             <div className="flex gap-2 items-center">
               <label className="text-xs text-black">Open:</label>

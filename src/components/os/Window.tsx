@@ -14,7 +14,7 @@ interface WindowProps {
   defaultPosition?: { x: number; y: number };
   width?: string;
   height?: string;
-  theme?: "Blue" | "Olive" | "Silver";
+  theme?: "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
   onFocus?: () => void;
   isActive?: boolean;
 }
@@ -58,6 +58,31 @@ export function Window({
       header: "bg-gradient-to-r from-[#B8B9BD] to-[#D0D1D5]",
       border: "border-[#B8B9BD]",
       text: "text-black"
+    },
+    Metallic: {
+      header: "bg-gradient-to-r from-[#8B7FB8] to-[#B5A8D6]",
+      border: "border-[#8B7FB8]",
+      text: "text-white text-shadow-sm"
+    },
+    Homestead: {
+      header: "bg-gradient-to-r from-[#C1A875] to-[#D4C19C]",
+      border: "border-[#C1A875]",
+      text: "text-white text-shadow-sm"
+    },
+    EnergyBlue: {
+      header: "bg-gradient-to-r from-[#0099FF] to-[#33B5FF]",
+      border: "border-[#0099FF]",
+      text: "text-white text-shadow-sm"
+    },
+    NavyDark: {
+      header: "bg-gradient-to-r from-[#1a2332] to-[#2d3e50]",
+      border: "border-[#1a2332]",
+      text: "text-white text-shadow-sm"
+    },
+    BlackDark: {
+      header: "bg-gradient-to-r from-[#1c1c1c] to-[#2d2d2d]",
+      border: "border-[#1c1c1c]",
+      text: "text-white text-shadow-sm"
     }
   };
 

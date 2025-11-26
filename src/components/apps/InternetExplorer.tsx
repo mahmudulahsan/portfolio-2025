@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight, ChevronDown, Home, RefreshCw, Search, X } from "
 import { useState } from "react";
 
 export function InternetExplorer() {
-  const [url, setUrl] = useState("http://www.mahmudulahsan.com/favorites");
+  const [url, setUrl] = useState("https://ahsan-xp.vercel.app");
 
   return (
     <div className="flex flex-col h-full bg-[#ECE9D8] font-tahoma text-sm">

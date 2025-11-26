@@ -8,8 +8,8 @@ import { useState } from "react";
 interface DisplayPropertiesProps {
   onClose: () => void;
   onContact: () => void;
-  theme: "Blue" | "Olive" | "Silver";
-  setTheme: (theme: "Blue" | "Olive" | "Silver") => void;
+  theme: "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
+  setTheme: (theme: "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark") => void;
   wallpaper: string;
   setWallpaper: (wallpaper: string) => void;
 }
@@ -106,16 +106,12 @@ export function DisplayProperties({ onClose, onContact, theme, setTheme, wallpap
                   <option value="Blue">Default (Blue)</option>
                   <option value="Olive">Olive Green</option>
                   <option value="Silver">Silver</option>
+                  <option value="Metallic">Metallic</option>
+                  <option value="Homestead">Homestead</option>
+                  <option value="EnergyBlue">Energy Blue</option>
+                  <option value="NavyDark">Navy Dark</option>
+                  <option value="BlackDark">Black Dark</option>
                 </select>
-                <div className="flex flex-col gap-2 mt-auto justify-end w-full">
-                  <Button
-                    onClick={() => alert("You are already viewing the advanced version of Mahmudul's Portfolio!")}
-                    variant="outline"
-                    className="px-3 py-1 bg-[#ECE9D8] border border-gray-400 rounded shadow-sm hover:bg-white active:bg-gray-200 text-center h-auto text-[11px] font-tahoma text-black"
-                  >
-                    Advanced
-                  </Button>
-                </div>
               </div>
             </div>
           </TabsContent>
