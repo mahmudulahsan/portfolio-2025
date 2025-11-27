@@ -4,14 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getClippyAnswer } from "@/data/clippyKnowledge";
-import { Send, X } from "lucide-react";
+import { getGeminiResponse } from "@/lib/gemini";
+import { Send, X, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { MarkdownRenderer } from "./MarkdownRenderer";
 
 export function Clippy() {
   const [isOpen, setIsOpen] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [conversation, setConversation] = useState<{ role: "user" | "clippy"; text: string }[]>([
     { role: "clippy", text: "Hi! I'm Clippy. Ask me anything about Mahmudul Ahsan!" }
   ]);
@@ -23,20 +25,24 @@ export function Clippy() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [conversation]);
+  }, [conversation, isLoading]);
 
-  const handleSend = () => {
-    if (!message.trim()) return;
+  const handleSend = async () => {
+    if (!message.trim() || isLoading) return;
 
     const userMsg = message;
     setConversation(prev => [...prev, { role: "user", text: userMsg }]);
     setMessage("");
+    setIsLoading(true);
 
-    // Simulate thinking delay
-    setTimeout(() => {
-      const answer = getClippyAnswer(userMsg);
+    try {
+      const answer = await getGeminiResponse(userMsg);
       setConversation(prev => [...prev, { role: "clippy", text: answer }]);
-    }, 600);
+    } catch (error) {
+      setConversation(prev => [...prev, { role: "clippy", text: "Sorry, something went wrong." }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -47,11 +53,11 @@ export function Clippy() {
       {isChatOpen && (
         <Card className="bg-[#FFFFE1] border border-black rounded-lg shadow-lg p-0 w-64 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
           <div className="bg-[#4A7AC9] text-white px-2 py-1 text-xs font-bold flex justify-between items-center">
-            <span>Clippy Assistant</span>
-            <Button 
-              onClick={() => setIsChatOpen(false)} 
-              variant="ghost" 
-              size="icon" 
+            <span>Clippy AI Assistant</span>
+            <Button
+              onClick={() => setIsChatOpen(false)}
+              variant="ghost"
+              size="icon"
               className="h-4 w-4 hover:bg-red-500 rounded px-0 text-white hover:text-white"
             >
               <X className="w-3 h-3" />
@@ -64,14 +70,26 @@ export function Clippy() {
                 <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
                     className={`max-w-[85%] p-1.5 rounded ${msg.role === "user"
-                        ? "bg-[#E1F0FF] border border-[#316AC5] text-black"
-                        : "bg-white border border-gray-400 text-black"
+                      ? "bg-[#E1F0FF] border border-[#316AC5] text-black"
+                      : "bg-white border border-gray-400 text-black"
                       }`}
                   >
-                    {msg.text}
+                    {msg.role === "clippy" ? (
+                      <MarkdownRenderer content={msg.text} />
+                    ) : (
+                      <span className="text-xs">{msg.text}</span>
+                    )}
                   </div>
                 </div>
               ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-white border border-gray-400 text-black max-w-[85%] p-1.5 rounded flex items-center gap-1">
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                    <span>Thinking...</span>
+                  </div>
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
@@ -101,9 +119,7 @@ export function Clippy() {
         className="relative cursor-pointer group hover:scale-110 transition-transform duration-200"
         onClick={() => setIsChatOpen(!isChatOpen)}
       >
-        {/* Simple CSS/SVG Clippy Representation */}
         <div className="w-36 h-36 relative animate-bounce-slow">
-          {/* Using an image if available would be best, but constructing a CSS/SVG one is safer for now */}
           <img src="/clippy.png" alt="clippy" />
         </div>
 
