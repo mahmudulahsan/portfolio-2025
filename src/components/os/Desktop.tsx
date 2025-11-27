@@ -70,8 +70,8 @@ export function Desktop() {
   // Z-index management for window stacking
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
 
-  const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark">("Blue");
-  const [wallpaper, setWallpaper] = useState("/wallpaper.jpeg");
+  const [theme, setTheme] = useState<"Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark">("NavyDark");
+  const [wallpaper, setWallpaper] = useState("https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";

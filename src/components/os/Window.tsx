@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
 
 interface WindowProps {
   title: string;
@@ -34,13 +35,12 @@ export function Window({
   isActive = false
 }: WindowProps) {
   const [position, setPosition] = useState(defaultPosition);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizeState, setPreMaximizeState] = useState<{ x: number, y: number, width: string, height: string } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   const windowRef = useRef<HTMLDivElement>(null);
+  const nodeRef = useRef<HTMLDivElement>(null);
 
   // Theme styles
   const themeStyles = {
@@ -129,26 +129,8 @@ export function Window({
 
   if (!isOpen || isMinimized) return null;
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (isMaximized || isMobile) return;
-    setIsDragging(true);
-    setDragOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y
-    });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging && !isMobile) {
-      setPosition({
-        x: e.clientX - dragOffset.x,
-        y: e.clientY - dragOffset.y
-      });
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleDrag = (_e: any, data: any) => {
+    setPosition({ x: data.x, y: data.y });
   };
 
   const toggleMaximize = () => {
@@ -171,35 +153,29 @@ export function Window({
   const responsiveHeight = isMobile ? "auto" : (isMaximized ? "calc(100vh - 30px)" : height);
   const maxHeight = isMobile ? "calc(100vh - 100px)" : "none";
 
-  return (
+  const windowContent = (
     <div
       ref={windowRef}
       className={cn(
-        "absolute flex flex-col bg-[#ECE9D8] rounded-t-lg shadow-xl overflow-hidden border-2 md:border-[3px]",
+        "flex flex-col bg-[#ECE9D8] rounded-t-lg shadow-xl overflow-hidden border-2 md:border-[3px]",
         currentTheme.border,
         isMobile && "!left-2 !top-12"
       )}
       style={{
-        left: isMobile ? 8 : position.x,
-        top: isMobile ? 48 : position.y,
         width: responsiveWidth,
         height: responsiveHeight,
         maxHeight: maxHeight,
         zIndex: isActive ? 100 : 50,
       }}
       onMouseDown={() => onFocus?.()}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
     >
       {/* Title Bar */}
       <div
         className={cn(
-          "flex items-center justify-between px-1.5 sm:px-2 py-0.5 sm:py-1 select-none cursor-default",
+          "flex items-center justify-between px-1.5 sm:px-2 py-0.5 sm:py-1 select-none cursor-default drag-handle",
           currentTheme.header,
           !isMaximized && !isMobile && "cursor-move"
         )}
-        onMouseDown={handleMouseDown}
         onDoubleClick={toggleMaximize}
       >
         <div className={cn("flex items-center gap-1 sm:gap-2 font-bold text-[11px] sm:text-[13px] truncate", currentTheme.text)}>
@@ -234,5 +210,35 @@ export function Window({
         {children}
       </div>
     </div>
+  );
+
+  // If mobile or maximized, render without Draggable
+  if (isMobile || isMaximized) {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          left: isMobile ? 8 : 0,
+          top: isMobile ? 48 : 0,
+        }}
+      >
+        {windowContent}
+      </div>
+    );
+  }
+
+  // Use Draggable for desktop non-maximized windows
+  return (
+    <Draggable
+      nodeRef={nodeRef}
+      handle=".drag-handle"
+      position={position}
+      onDrag={handleDrag}
+      bounds="parent"
+    >
+      <div ref={nodeRef} style={{ position: 'absolute' }}>
+        {windowContent}
+      </div>
+    </Draggable>
   );
 }
