@@ -18,6 +18,7 @@ interface WindowProps {
   theme?: "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
   onFocus?: () => void;
   isActive?: boolean;
+  zIndex?: number;
 }
 
 export function Window({
@@ -32,7 +33,8 @@ export function Window({
   height = "auto",
   theme = "Blue",
   onFocus,
-  isActive = false
+  isActive = false,
+  zIndex
 }: WindowProps) {
   const [position, setPosition] = useState(defaultPosition);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -165,7 +167,7 @@ export function Window({
         width: responsiveWidth,
         height: responsiveHeight,
         maxHeight: maxHeight,
-        zIndex: isActive ? 100 : 50,
+        zIndex: zIndex !== undefined ? zIndex : (isActive ? 100 : 50),
       }}
       onMouseDown={() => onFocus?.()}
     >

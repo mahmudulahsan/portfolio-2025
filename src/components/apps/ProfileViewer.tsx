@@ -29,34 +29,34 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
   return (
     <Tabs defaultValue="general" className="flex flex-col h-full bg-[#ECE9D8] font-tahoma text-xs select-text">
       {/* Header / User Info */}
-      <div className="flex items-start gap-4 p-3 pb-0">
+      <div className="flex flex-wrap items-start gap-3 sm:gap-4 p-3 pb-0">
         <div className="p-1 bg-white border border-[#ACA899] shadow-inner shrink-0">
-          <div className="h-16 w-16 bg-gradient-to-br from-[#E3E3E3] to-[#C0C0C0] flex items-center justify-center border border-[#8E8E8E]">
+          <div className="h-12 w-12 sm:h-16 sm:w-16 bg-gradient-to-br from-[#E3E3E3] to-[#C0C0C0] flex items-center justify-center border border-[#8E8E8E]">
             <Avatar className="h-full w-full rounded-none">
               <AvatarImage src="/pro.jpg" alt="User" className="object-cover" />
               <AvatarFallback className="rounded-none text-xl font-bold text-gray-500">MA</AvatarFallback>
             </Avatar>
           </div>
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <h2 className="font-bold text-sm text-black">Mahmudul Ahsan</h2>
           <p className="text-[#555555]">Software Engineer</p>
-          <div className="flex items-center mt-1 text-[#555555]">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-[#555555]">
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
-              <span>{contactInfo.address}</span>
+              <span className="text-[10px] sm:text-xs">{contactInfo.address}</span>
             </div>
             <div className="flex items-center gap-1">
               <Phone className="h-3 w-3" />
-              <span>{contactInfo.phone}</span>
+              <span className="text-[10px] sm:text-xs">{contactInfo.phone}</span>
             </div>
           </div>
         </div>
 
-        <div className="ml-auto pr-2">
+        <div className="w-full sm:w-auto sm:ml-auto sm:pr-2">
           <button
             onClick={onDownloadResume}
-            className="flex items-center px-3 py-1 bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner transition-colors group"
+            className="w-full sm:w-auto flex items-center justify-center gap-1 px-3 py-1 bg-[#F4F4F4] border border-[#003C74] rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#E3E3E3] active:bg-[#D4D4D4] active:shadow-inner transition-colors group"
           >
             <Download className="h-4 w-4 text-[#003C74] group-hover:text-blue-600" />
             <span className="text-xs font-tahoma text-black">Download Resume</span>
@@ -66,13 +66,13 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
 
       {/* Tabs */}
       <div className="px-2 pt-3 flex items-end gap-0.5 border-b border-white">
-        <TabsList className="bg-transparent p-0 h-auto gap-0.5 justify-start w-full rounded-none">
+        <TabsList className="bg-transparent p-0 h-auto gap-0.5 justify-start w-full rounded-none flex-wrap sm:flex-nowrap">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.id}
               value={tab.id}
               className={cn(
-                "px-3 py-1.5 rounded-t-[3px] border-t border-l border-r border-[#919B9C] relative top-[1px] rounded-b-none border-b-0 h-auto shadow-none",
+                "px-1.5 sm:px-2 py-0.5 rounded-t-[3px] border-t border-l border-r border-[#919B9C] relative top-[1px] rounded-b-none border-b-0 h-auto shadow-none text-[9px] sm:text-[10px]",
                 "data-[state=active]:bg-white data-[state=active]:z-10 data-[state=active]:font-bold data-[state=active]:shadow-none",
                 "bg-[#ECE9D8] text-[#444] hover:bg-[#F3F3F3] data-[state=inactive]:hover:bg-[#F3F3F3]"
               )}
@@ -111,7 +111,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
 
               <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
                 <legend className="px-1 text-[#003399] font-medium">Contact & Profiles</legend>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {contactInfo.links.map((link) => {
                     let Icon = Mail;
                     if (link.id === 'linkedin') Icon = Linkedin;
@@ -120,8 +120,8 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                     if (link.id === 'youtube') Icon = Youtube;
 
                     return (
-                      <a key={link.id} href={link.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                        <Icon className="h-3.5 w-3.5" /> {link.value}
+                      <a key={link.id} href={link.href} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline break-all">
+                        <Icon className="h-3.5 w-3.5 shrink-0" /> <span className="text-[10px] sm:text-xs">{link.value}</span>
                       </a>
                     );
                   })}
