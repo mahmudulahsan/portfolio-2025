@@ -116,7 +116,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
 
     const parseInlineMarkdown = (text: string): React.ReactNode => {
         const parts: React.ReactNode[] = [];
-        let currentText = text;
+        const currentText = text;
         let key = 0;
 
         // Process inline code first
@@ -150,7 +150,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
 
     const processTextFormatting = (text: string, startKey: number): React.ReactNode[] => {
         const parts: React.ReactNode[] = [];
-        let remaining = text;
+        const remaining = text;
         let key = startKey;
 
         // Bold

@@ -22,7 +22,7 @@ export const portfolioConfig = {
   // Website Metadata (for SEO)
   site: {
     name: "Mahmudul Ahsan Portfolio",
-    url: "https://mahmudulahsan.com",
+    url: "https://ahsan-xp.vercel.app",
     description: "Explore the portfolio of Mahmudul Ahsan, a passionate Software Engineer specializing in Full Stack Development, React, Next.js, and modern web technologies. Experience a nostalgic Windows XP theme.",
     keywords: [
       "Mahmudul Ahsan",

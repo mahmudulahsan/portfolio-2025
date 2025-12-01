@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 
 export function Clippy() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,33 +27,75 @@ export function Clippy() {
     scrollToBottom();
   }, [conversation, isLoading]);
 
+  // Timer effect for tracking chat duration
+
+
+  const [tokens, setTokens] = useState(10); // Default start, will sync with local storage
+
+  useEffect(() => {
+    const storedTokens = localStorage.getItem("clippy_tokens");
+    if (storedTokens) {
+      setTokens(parseInt(storedTokens, 10) || 10);
+    } else {
+      localStorage.setItem("clippy_tokens", "10");
+    }
+  }, []);
+
   const handleSend = async () => {
     if (!message.trim() || isLoading) return;
+
+    if (tokens <= 0) {
+      setConversation(prev => [...prev, { role: "user", text: message }]);
+      setMessage("");
+      setTimeout(() => {
+        setConversation(prev => [...prev, {
+          role: "clippy",
+          text: "I've reached my interaction limit for this session. Please refresh the page or try again later!"
+        }]);
+      }, 500);
+      return;
+    }
 
     const userMsg = message;
     setConversation(prev => [...prev, { role: "user", text: userMsg }]);
     setMessage("");
     setIsLoading(true);
 
+    // Deduct token
+    const newTokens = tokens - 1;
+    setTokens(newTokens);
+    localStorage.setItem("clippy_tokens", newTokens.toString());
+
+
+
     try {
       const answer = await getGeminiResponse(userMsg);
       setConversation(prev => [...prev, { role: "clippy", text: answer }]);
-    } catch (error) {
+    } catch {
       setConversation(prev => [...prev, { role: "clippy", text: "Sorry, something went wrong." }]);
     } finally {
       setIsLoading(false);
     }
   };
 
+
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-12 right-4 z-[50] flex flex-col items-end gap-2 font-tahoma">
+    <div className="fixed bottom-4 right-2 sm:bottom-12 sm:right-4 z-[50] flex flex-col items-end gap-2 font-tahoma">
       {/* Chat Bubble */}
       {isChatOpen && (
-        <Card className="bg-[#FFFFE1] border border-black rounded-lg shadow-lg p-0 w-64 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
+        <Card className="bg-[#FFFFE1] border border-black rounded-lg shadow-lg p-0 w-[calc(100vw-2rem)] sm:w-64 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
           <div className="bg-[#4A7AC9] text-white px-2 py-1 text-xs font-bold flex justify-between items-center">
-            <span>Clippy AI Assistant</span>
+            <div className="flex items-center gap-2">
+              <span>Clippy AI Assistant</span>
+              <div className="flex items-center gap-1 bg-black/10 px-1.5 py-0.5 rounded border border-white/10 shadow-inner" title="Remaining interactions">
+                <span className="text-[10px] font-normal opacity-90">Tokens:</span>
+                <span className={`text-[10px] ${tokens < 3 ? 'text-red-200' : 'text-white'}`}>{tokens}</span>
+              </div>
+
+            </div>
             <Button
               onClick={() => setIsChatOpen(false)}
               variant="ghost"
@@ -94,6 +136,7 @@ export function Clippy() {
             </div>
           </ScrollArea>
 
+
           <div className="p-2 border-t border-gray-300 bg-gray-50 flex gap-1">
             <Input
               type="text"
@@ -119,12 +162,12 @@ export function Clippy() {
         className="relative cursor-pointer group hover:scale-110 transition-transform duration-200"
         onClick={() => setIsChatOpen(!isChatOpen)}
       >
-        <div className="w-36 h-36 relative animate-bounce-slow">
+        <div className="w-28 h-28 sm:w-36 sm:h-36 relative animate-bounce-slow">
           <img src="/clippy.png" alt="clippy" />
         </div>
 
         {!isChatOpen && (
-          <div className="absolute -top-8 right-0 bg-[#FFFFE1] border border-black px-2 py-1 text-[10px] rounded shadow whitespace-nowrap animate-pulse">
+          <div className="absolute -top-6 sm:-top-8 right-0 bg-[#FFFFE1] border border-black px-2 py-1 text-[10px] rounded shadow whitespace-nowrap animate-pulse">
             Need help?
           </div>
         )}
