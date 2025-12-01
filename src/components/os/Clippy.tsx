@@ -27,34 +27,112 @@ export function Clippy() {
     scrollToBottom();
   }, [conversation, isLoading]);
 
-  // Timer effect for tracking chat duration
-
-
-  const [tokens, setTokens] = useState(10); // Default start, will sync with local storage
+  // Token and rate limiting state
+  const [tokens, setTokens] = useState(10);
+  const lastMessageTimeRef = useRef<number>(0);
+  const [isRateLimited, setIsRateLimited] = useState(false);
 
   useEffect(() => {
     const storedTokens = localStorage.getItem("clippy_tokens");
-    if (storedTokens) {
-      setTokens(parseInt(storedTokens, 10) || 10);
+    const cooldownStart = localStorage.getItem("clippy_cooldown_start");
+
+    // Check if there's an active cooldown
+    if (cooldownStart) {
+      const start = parseInt(cooldownStart, 10);
+      const now = Date.now();
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+
+      if (now - start >= oneHour) {
+        // Cooldown has expired, reset tokens
+        setTokens(10);
+        localStorage.setItem("clippy_tokens", "10");
+        localStorage.removeItem("clippy_cooldown_start");
+      } else {
+        // Still in cooldown period
+        setTokens(0);
+        localStorage.setItem("clippy_tokens", "0");
+      }
     } else {
-      localStorage.setItem("clippy_tokens", "10");
+      // No cooldown, load stored tokens or default
+      if (storedTokens) {
+        setTokens(parseInt(storedTokens, 10) || 10);
+      } else {
+        localStorage.setItem("clippy_tokens", "10");
+      }
     }
   }, []);
 
   const handleSend = async () => {
     if (!message.trim() || isLoading) return;
 
+    // Rate limiting: prevent spam (minimum 3 seconds between messages)
+    const now = Date.now();
+    const timeSinceLastMessage = now - lastMessageTimeRef.current;
+    const minDelay = 3000; // 3 seconds
+
+    if (timeSinceLastMessage < minDelay && lastMessageTimeRef.current !== 0) {
+      const remainingSeconds = Math.ceil((minDelay - timeSinceLastMessage) / 1000);
+
+      // Detect rapid spam attempts (trying to send within 1 second)
+      if (timeSinceLastMessage < 1000) {
+        setIsRateLimited(true);
+        setConversation(prev => [...prev, {
+          role: "clippy",
+          text: "⚠️ Spam detected! Please wait 30 seconds before trying again."
+        }]);
+
+        // Temporary ban for 30 seconds
+        setTimeout(() => {
+          setIsRateLimited(false);
+        }, 30000);
+        return;
+      }
+
+      setConversation(prev => [...prev, {
+        role: "clippy",
+        text: `Please wait ${remainingSeconds} second${remainingSeconds !== 1 ? 's' : ''} before sending another message.`
+      }]);
+      return;
+    }
+
+    // Check if temporarily banned from spam
+    if (isRateLimited) {
+      setConversation(prev => [...prev, {
+        role: "clippy",
+        text: "You're temporarily restricted due to spam detection. Please wait."
+      }]);
+      return;
+    }
+
     if (tokens <= 0) {
       setConversation(prev => [...prev, { role: "user", text: message }]);
       setMessage("");
+
+      // Calculate remaining time
+      const cooldownStart = localStorage.getItem("clippy_cooldown_start");
+      let timeMsg = "later";
+      if (cooldownStart) {
+        const start = parseInt(cooldownStart, 10);
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000;
+        const remaining = oneHour - (now - start);
+        if (remaining > 0) {
+          const minutes = Math.ceil(remaining / 60000);
+          timeMsg = `in ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+        }
+      }
+
       setTimeout(() => {
         setConversation(prev => [...prev, {
           role: "clippy",
-          text: "I've reached my interaction limit for this session. Please refresh the page or try again later!"
+          text: `I've reached my interaction limit. Please try again ${timeMsg}!`
         }]);
       }, 500);
       return;
     }
+
+    // Update last message timestamp
+    lastMessageTimeRef.current = now;
 
     const userMsg = message;
     setConversation(prev => [...prev, { role: "user", text: userMsg }]);
@@ -66,7 +144,10 @@ export function Clippy() {
     setTokens(newTokens);
     localStorage.setItem("clippy_tokens", newTokens.toString());
 
-
+    // Start cooldown when tokens reach 0
+    if (newTokens === 0) {
+      localStorage.setItem("clippy_cooldown_start", Date.now().toString());
+    }
 
     try {
       const answer = await getGeminiResponse(userMsg);
@@ -77,8 +158,6 @@ export function Clippy() {
       setIsLoading(false);
     }
   };
-
-
 
   if (!isOpen) return null;
 
