@@ -44,7 +44,7 @@ export const projects: Project[] = [
   },
   {
     id: "hospital",
-    title: "Hospital Billing",
+    title: "Hospital Billing Management",
     type: "Web Application",
     description: "Built a hospital management and billing app using React.js and Tailwind CSS, with localStorage caching to reduceread/write load. Optimized UI performance and integrated dynamic reports for actionable admin insights",
     tech: "React, Express.js, Firebase Auth, Sequelize ORM, Ant.js, Chart.js",
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     type: "Landing Webpage",
     description: "Developed a landing page for Merlin Group",
     tech: "Reactjs, Firebase Hosting, TailwindCSS",
-    link: "",
+    link: "https://merlinbd.com/",
     category: "Landing Pages"
   },
   {

@@ -43,7 +43,7 @@ export function InternetExplorer() {
             </div>
           </button>
         </div>
-        
+
         <div className="w-[1px] h-6 bg-gray-300 mx-1" />
 
         <button disabled className="p-1 border border-transparent disabled:opacity-50 disabled:cursor-not-allowed grayscale">
@@ -75,8 +75,8 @@ export function InternetExplorer() {
         <span className="text-xs text-gray-500">Address</span>
         <div className="flex-1 flex items-center bg-white border border-[#7F9DB9] px-1 h-5">
           <img src="/ie.png" alt="IE" className="w-3 h-3 mr-1" />
-          <Input 
-            type="text" 
+          <Input
+            type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className="flex-1 text-xs outline-none font-sans border-none h-auto p-0 shadow-none focus-visible:ring-0 rounded-none bg-transparent"
@@ -84,8 +84,8 @@ export function InternetExplorer() {
           />
           <ChevronDown className="w-3 h-3 text-gray-500" />
         </div>
-        <Button 
-          disabled 
+        <Button
+          disabled
           variant="outline"
           size="sm"
           className="flex items-center gap-1 px-2 py-0.5 bg-[#F4F4F4] border border-gray-400 rounded disabled:opacity-50 disabled:cursor-not-allowed h-auto text-xs text-gray-400 font-bold hover:bg-[#F4F4F4] shadow-none"
@@ -95,40 +95,70 @@ export function InternetExplorer() {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 bg-white overflow-hidden font-serif relative">
+      <div className="flex-1 bg-white overflow-hidden font-tahoma relative">
         <ScrollArea className="h-full w-full">
-          <div className="max-w-3xl mx-auto p-8">
-            <h1 className="text-3xl font-bold text-[#003399] mb-2 border-b-2 border-[#003399] pb-2">
-              Welcome to Internet Explorer
-            </h1>
-            <p className="text-gray-600 mb-8 italic">Your gateway to my technical writings across the web.</p>
+          <div className="p-6">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-[#003399] mb-1">
+                My Tech Blog
+              </h1>
+              <p className="text-xs text-gray-600">Technical writings and articles</p>
+            </div>
 
-            <div className="grid gap-6">
+            {/* Tab-like Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {blogs.map((blog) => (
-                <div key={blog.id} className="flex gap-4 p-4 border border-[#D0D0BF] bg-[#F5F5F5] hover:bg-[#E8F0FA] hover:border-[#316AC5] transition-colors group">
-                  <div className="shrink-0">
-                     <div className="w-12 h-12 bg-white border border-gray-300 flex items-center justify-center shadow-sm">
-                        <span className="font-bold text-xl text-[#003399]">{blog.platform[0]}</span>
-                     </div>
-                  </div>
-                  <div className="flex-1">
-                    <a href={blog.link} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-[#003399] group-hover:underline block mb-1">
-                      {blog.title}
-                    </a>
-                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                      <span className="font-bold text-[#003399]">{blog.platform}</span>
-                      <span>•</span>
-                      <span>{blog.date}</span>
+                <a
+                  key={blog.id}
+                  href={blog.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="relative bg-gradient-to-b from-[#FFFFFF] to-[#ECE9D8] border-2 border-[#0054E3] rounded-t-lg overflow-hidden shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    {/* Tab Top */}
+                    <div className="bg-gradient-to-r from-[#0054E3] to-[#0099FF] px-3 py-1.5 flex items-center gap-2">
+                      <div className="w-4 h-4 bg-white rounded-sm flex items-center justify-center shadow-sm">
+                        <span className="text-[10px] font-bold text-[#0054E3]">{blog.platform[0]}</span>
+                      </div>
+                      <span className="text-white text-xs font-bold truncate flex-1">{blog.platform}</span>
                     </div>
-                    <p className="text-sm text-black leading-relaxed">
-                      {blog.description}
-                    </p>
+
+                    {/* Card Content */}
+                    <div className="p-3">
+                      <h3 className="text-sm font-bold text-[#003399] mb-2 line-clamp-2 group-hover:underline min-h-[2.5rem]">
+                        {blog.title}
+                      </h3>
+                      <p className="text-xs text-gray-700 mb-2 line-clamp-2 leading-relaxed">
+                        {blog.description}
+                      </p>
+                      <div className="flex items-center justify-between text-[10px] text-gray-500">
+                        <span>{blog.date}</span>
+                        <span className="text-[#0054E3] group-hover:underline font-bold">Read →</span>
+                      </div>
+                    </div>
+
+                    {/* Classic Windows Border Effect */}
+                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                      <div className="absolute top-0 left-0 w-1 h-1 bg-white"></div>
+                      <div className="absolute top-0 right-0 w-1 h-1 bg-[#808080]"></div>
+                    </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
 
-            <div className="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 font-sans">
+            {/* Empty State */}
+            {blogs.length === 0 && (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-[#ECE9D8] border-2 border-[#0054E3] rounded-lg mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">📝</span>
+                </div>
+                <p className="text-sm text-gray-600">No blog posts available yet.</p>
+              </div>
+            )}
+
+            <div className="mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500">
               © 2025 Mahmudul Ahsan. All rights reserved.
             </div>
           </div>

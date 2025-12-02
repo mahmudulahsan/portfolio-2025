@@ -11,7 +11,6 @@ import { portfolioConfig } from "@/data/config";
 import { contactInfo } from "@/data/contact";
 import { Coffee, Mail, Phone } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { BootScreen } from "./BootScreen";
 import { Clippy } from "./Clippy";
 import { ContextMenu } from "./ContextMenu";
 import { DesktopIcon } from "./DesktopIcon";
@@ -21,19 +20,10 @@ import { Taskbar } from "./Taskbar";
 import { Window } from "./Window";
 
 export function Desktop() {
-  const [isBooting, setIsBooting] = useState(false);
   const [isLocked, setIsLocked] = useState(true);
 
   useEffect(() => {
-    // Check if user has visited before
-    const hasVisited = localStorage.getItem("hasVisited");
     const locked = localStorage.getItem("isLocked");
-
-    if (!hasVisited) {
-      // First visit - show boot screen
-      setIsBooting(true);
-      localStorage.setItem("hasVisited", "true");
-    }
 
     if (locked === "false") {
       setIsLocked(false);
@@ -267,10 +257,6 @@ export function Desktop() {
     (w.id === "settings" && isSettingsOpen) ||
     (w.id === "internet" && isInternetExplorerOpen)
   );
-
-  if (isBooting) {
-    return <BootScreen onComplete={() => setIsBooting(false)} />;
-  }
 
   if (isLocked) {
     return <LockScreen onLogin={() => {
