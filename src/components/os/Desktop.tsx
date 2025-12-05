@@ -66,9 +66,12 @@ export function Desktop() {
   const [wallpaper, setWallpaper] = useState("https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "Blue" | "Olive" | "Silver" | "Metallic" | "Homestead" | "EnergyBlue" | "NavyDark" | "BlackDark";
+    const savedTheme = localStorage.getItem("theme");
     const savedWallpaper = localStorage.getItem("wallpaper");
-    if (savedTheme) setTheme(savedTheme);
+    const validThemes = ["Blue", "Olive", "Silver", "Metallic", "Homestead", "EnergyBlue", "NavyDark", "BlackDark"];
+    if (savedTheme && validThemes.includes(savedTheme)) {
+      setTheme(savedTheme as any);
+    }
     if (savedWallpaper) setWallpaper(savedWallpaper);
   }, []);
 

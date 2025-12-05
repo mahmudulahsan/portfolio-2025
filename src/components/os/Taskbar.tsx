@@ -91,8 +91,8 @@ export function Taskbar({
     <div
       className="fixed bottom-0 left-0 right-0 h-8 sm:h-10 flex items-center justify-between px-0.5 sm:px-1 z-[9998]"
       style={{
-        background: themeStyles[theme].background,
-        borderTop: `1px solid ${themeStyles[theme].border}`
+        background: (themeStyles[theme] || themeStyles["Blue"]).background,
+        borderTop: `1px solid ${(themeStyles[theme] || themeStyles["Blue"]).border}`
       }}
     >
       <StartMenu

@@ -88,7 +88,7 @@ export function Window({
     }
   };
 
-  const currentTheme = themeStyles[theme];
+  const currentTheme = themeStyles[theme] || themeStyles["Blue"];
 
   useEffect(() => {
     // Check if mobile on mount and resize

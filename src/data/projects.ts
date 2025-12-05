@@ -151,12 +151,21 @@ export const projects: Project[] = [
     category: "Hobby Projects"
   },
   {
-    id: "random-ayat-generator",
-    title: "Random Quranic Verses Generator",
+    id: "ilham-app",
+    title: "Ilham AI",
     type: "Web Application",
-    description: "Developed a tiny app for generating random Quranic verses",
-    tech: "Reactjs, TailwindCSS, DaisyUI, Firebase Hosting",
-    link: "https://mahmudulahsan.github.io/random-quran-ayat-generator/",
-    category: "Hobby Projects"
+    description: "Developed a web app for suggesting diffent quranic ayats based on user mood",
+    tech: "Nextjs, TailwindCSS, Shadcn, Gemini API, Vercel",
+    link: "https://ilham-ai.vercel.app/",
+    category: "Real Life Projects"
+  },
+  {
+    id: "hanabulary",
+    title: "Hanabulary",
+    type: "Web Application",
+    description: "Developed a web app for learning Japanese vocabulary",
+    tech: "Nextjs, TailwindCSS, Shadcn, Vercel",
+    link: "https://hanabulary.vercel.app/",
+    category: "Real Life Projects"
   },
 ];

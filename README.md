@@ -170,12 +170,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Mahmudul Ahsan** - Software Engineer
 
-- **Website**: [mahmudulahsan.com](https://mahmudulahsan.com)
+- **Website**: [https://ahsan-xp.vercel.app/](https://ahsan-xp.vercel.app/)
 - **LinkedIn**: [linkedin.com/in/ahsanmahmudul](https://www.linkedin.com/in/ahsanmahmudul/)
 - **GitHub**: [github.com/mahmudulahsan](https://github.com/mahmudulahsan)
-
----
-
-**Built with nostalgia and modern web technologies ☕**
-
-*A tribute to Windows XP - the OS that started it all for many developers.*
