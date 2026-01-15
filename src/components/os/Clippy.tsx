@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getGeminiResponse } from "@/lib/gemini";
+import { getZhipuResponse } from "@/lib/zhipu";
 import { Send, X, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { MarkdownRenderer } from "./MarkdownRenderer";
@@ -150,7 +150,7 @@ export function Clippy() {
     }
 
     try {
-      const answer = await getGeminiResponse(userMsg);
+      const answer = await getZhipuResponse(userMsg);
       setConversation(prev => [...prev, { role: "clippy", text: answer }]);
     } catch {
       setConversation(prev => [...prev, { role: "clippy", text: "Sorry, something went wrong." }]);

@@ -1,14 +1,39 @@
-import { achievements } from "@/data/achievements";
-import { blogs } from "@/data/blogs";
-import { contactInfo } from "@/data/contact";
-import { education } from "@/data/education";
-import { experiences } from "@/data/experience";
-import { projects } from "@/data/projects";
-import { researchItems } from "@/data/research";
-import { skillGroups } from "@/data/skills";
+
+import { achievementService } from "@/data/services/achievementService";
+import { blogService } from "@/data/services/blogService";
+import { contactService } from "@/data/services/contactService";
+import { educationService } from "@/data/services/educationService";
+import { experienceService } from "@/data/services/experienceService";
+import { projectService } from "@/data/services/projectService";
+import { researchService } from "@/data/services/researchService";
+import { skillService } from "@/data/services/skillService";
 import { portfolioConfig } from "@/data/config";
 
-export function getPortfolioContext(): string {
+export async function getPortfolioContext(): Promise<string> {
+  const [
+    achievements,
+    blogs,
+    profile,
+    links,
+    education,
+    experiences,
+    projects,
+    researchItems,
+    skillGroups
+  ] = await Promise.all([
+    achievementService.getAll(),
+    blogService.getAll(),
+    contactService.getProfile(),
+    contactService.getLinks(),
+    educationService.getAll(),
+    experienceService.getAll(),
+    projectService.getAll(),
+    researchService.getAll(),
+    skillService.getAll()
+  ]);
+
+  const socialLinks = links || [];
+
   return `
     You are an AI assistant for Mahmudul Ahsan's portfolio website.
     His nickname is Mahi.
@@ -26,12 +51,12 @@ export function getPortfolioContext(): string {
     Website: ${portfolioConfig.site.url}
 
     --- CONTACT ---
-    Email: ${contactInfo.email}
-    LinkedIn: ${contactInfo.links.find(s => s.id === "linkedin")?.href || "N/A"}
-    GitHub: ${contactInfo.links.find(s => s.id === "github")?.href || "N/A"}
+    Email: ${profile?.email || "N/A"}
+    LinkedIn: ${socialLinks.find((s: any) => s.id === "linkedin")?.href || "N/A"}
+    GitHub: ${socialLinks.find((s: any) => s.id === "github")?.href || "N/A"}
 
     --- EDUCATION ---
-    ${education.map(edu => `
+    ${education.map((edu: any) => `
     - Institution: ${edu.institution}
       Degree: ${edu.degree} in ${edu.field}
       Period: ${edu.period}
@@ -40,21 +65,21 @@ export function getPortfolioContext(): string {
     `).join("\n")}
 
     --- EXPERIENCE ---
-    ${experiences.map(exp => `
+    ${experiences.map((exp: any) => `
     - Role: ${exp.role}
       Company: ${exp.company}
       Period: ${exp.period}
-      Key Points: ${exp.points.join("; ")}
+      Key Points: ${Array.isArray(exp.points) ? exp.points.join("; ") : exp.points}
     `).join("\n")}
 
     --- SKILLS ---
-    ${skillGroups.map(group => `
+    ${skillGroups.map((group: any) => `
     Category: ${group.title}
-    Skills: ${group.skills.join(", ")}
+    Skills: ${Array.isArray(group.skills) ? group.skills.join(", ") : group.skills}
     `).join("\n")}
 
     --- PROJECTS ---
-    ${projects.map(proj => `
+    ${projects.map((proj: any) => `
     - Title: ${proj.title}
       Type: ${proj.type}
       Description: ${proj.description}
@@ -63,21 +88,21 @@ export function getPortfolioContext(): string {
     `).join("\n")}
 
     --- ACHIEVEMENTS ---
-    ${achievements.map(ach => `
+    ${achievements.map((ach: any) => `
     - Title: ${ach.title}
       Description: ${ach.description}
       Link: ${ach.link || "N/A"}
     `).join("\n")}
 
     --- RESEARCH ---
-    ${researchItems.map(res => `
+    ${researchItems.map((res: any) => `
     - Title: ${res.title}
       Subtitle: ${res.subtitle}
       Description: ${res.description}
     `).join("\n")}
 
     --- BLOGS ---
-    ${blogs.map(blog => `
+    ${blogs.map((blog: any) => `
     - Title: ${blog.title}
       Date: ${blog.date}
       Link: ${blog.link}

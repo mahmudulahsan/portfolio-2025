@@ -3,14 +3,25 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { achievements } from "@/data/achievements";
-import { contactInfo } from "@/data/contact";
-import { experiences } from "@/data/experience";
-import { projects } from "@/data/projects";
-import { researchItems } from "@/data/research";
-import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/utils";
 import { Briefcase, Code, Download, Github, GraduationCap, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { useEffect, useState } from "react";
+
+// Initial Static Data (Fallback)
+import { achievements as staticAchievements } from "@/data/achievements";
+import { contactInfo as staticContact } from "@/data/contact";
+import { experiences as staticExperience } from "@/data/experience";
+import { projects as staticProjects } from "@/data/projects";
+import { researchItems as staticResearch } from "@/data/research";
+import { skillGroups as staticSkills } from "@/data/skills";
+
+// Services
+import { achievementService } from "@/data/services/achievementService";
+import { contactService } from "@/data/services/contactService";
+import { experienceService } from "@/data/services/experienceService";
+import { projectService } from "@/data/services/projectService";
+import { researchService } from "@/data/services/researchService";
+import { skillService } from "@/data/services/skillService";
 
 interface ProfileViewerProps {
   onClose: () => void;
@@ -25,6 +36,57 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
     { id: "skills", label: "Skills" },
     { id: "research", label: "Research" },
   ] as const;
+
+  // State
+  const [achievements, setAchievements] = useState<any[]>(staticAchievements);
+  const [contact, setContact] = useState<any>(staticContact);
+  const [experiences, setExperiences] = useState<any[]>(staticExperience);
+  const [projects, setProjects] = useState<any[]>(staticProjects);
+  const [research, setResearch] = useState<any[]>(staticResearch);
+  const [skills, setSkills] = useState<any[]>(staticSkills);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [
+          achData,
+          expData,
+          projData,
+          resData,
+          skillData,
+          profileData,
+          linksData
+        ] = await Promise.all([
+          achievementService.getAll(),
+          experienceService.getAll(),
+          projectService.getAll(),
+          researchService.getAll(),
+          skillService.getAll(),
+          contactService.getProfile(),
+          contactService.getLinks()
+        ]);
+
+        if (achData.length) setAchievements(achData);
+        if (expData.length) setExperiences(expData);
+        if (projData.length) setProjects(projData);
+        if (resData.length) setResearch(resData);
+        if (skillData.length) setSkills(skillData);
+
+        // Construct contact info from profile + links
+        if (profileData || linksData?.length) {
+          setContact({
+            ...staticContact,
+            ...profileData, // Overwrite name, email, address etc
+            links: linksData && linksData.length ? linksData : staticContact.links
+          });
+        }
+
+      } catch (err) {
+        console.error("Failed to fetch profile data", err);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <Tabs defaultValue="general" className="flex flex-col h-full bg-[#ECE9D8] font-tahoma text-xs select-text">
@@ -44,11 +106,11 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-[#555555]">
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
-              <span className="text-[10px] sm:text-xs">{contactInfo.address}</span>
+              <span className="text-[10px] sm:text-xs">{contact.address}</span>
             </div>
             <div className="flex items-center gap-1">
               <Phone className="h-3 w-3" />
-              <span className="text-[10px] sm:text-xs">{contactInfo.phone}</span>
+              <span className="text-[10px] sm:text-xs">{contact.phone}</span>
             </div>
           </div>
         </div>
@@ -112,7 +174,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
               <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
                 <legend className="px-1 text-[#003399] font-medium">Contact & Profiles</legend>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {contactInfo.links.map((link) => {
+                  {contact.links.map((link: any) => {
                     let Icon = Mail;
                     if (link.id === 'linkedin') Icon = Linkedin;
                     if (link.id === 'github') Icon = Github;
@@ -130,7 +192,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
             </TabsContent>
 
             <TabsContent value="experience" className="mt-0 space-y-4 focus-visible:ring-0">
-              {experiences.map((exp, index) => (
+              {experiences.map((exp: any, index: number) => (
                 <div key={index}>
                   <div className="flex gap-3">
                     <Briefcase className="h-5 w-5 text-[#003399] mt-1 shrink-0" />
@@ -139,9 +201,9 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                       <p className="text-[#003399] font-medium">{exp.role}</p>
                       <p className="text-[#555] mb-2">{exp.period}</p>
                       <ul className="list-disc pl-4 space-y-1 text-black marker:text-[#555]">
-                        {exp.points.map((point, i) => (
+                        {Array.isArray(exp.points) ? exp.points.map((point: string, i: number) => (
                           <li key={i}>{point}</li>
-                        ))}
+                        )) : <li>{exp.points}</li>}
                       </ul>
                     </div>
                   </div>
@@ -159,7 +221,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
                   <div className="space-y-3">
                     {projects
                       .filter((p) => p.category === category)
-                      .map((project) => (
+                      .map((project: any) => (
                         <div key={project.id} className="border-b border-[#D0D0BF] last:border-0 pb-2 last:pb-0">
                           <h3 className="font-bold text-[#003399] text-sm flex items-center gap-2">
                             {project.title}
@@ -187,10 +249,10 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
               <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
                 <legend className="px-1 text-[#003399] font-medium">Technical Skills</legend>
                 <div className="space-y-3">
-                  {skillGroups.map((group) => (
+                  {skills.map((group: any) => (
                     <div key={group.title}>
                       <span className="font-bold text-black">{group.title}:</span>
-                      <p className="text-black">{group.skills.join(", ")}</p>
+                      <p className="text-black">{Array.isArray(group.skills) ? group.skills.join(", ") : group.skills}</p>
                     </div>
                   ))}
                 </div>
@@ -199,7 +261,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
               <fieldset className="border border-[#D0D0BF] p-3 rounded-sm relative">
                 <legend className="px-1 text-[#003399] font-medium">Certifications & Achievements</legend>
                 <ul className="list-disc pl-4 space-y-1 text-black">
-                  {achievements.map((achievement, index) => (
+                  {achievements.map((achievement: any, index: number) => (
                     <li key={index}>
                       <span className="font-bold">{achievement.title}:</span> {achievement.description}
                       {achievement.link && (
@@ -222,7 +284,7 @@ export function ProfileViewer({ onClose, onDownloadResume }: ProfileViewerProps)
             </TabsContent>
 
             <TabsContent value="research" className="mt-0 space-y-4 focus-visible:ring-0">
-              {researchItems.map((item, index) => (
+              {research.map((item: any, index: number) => (
                 <div key={index} className="border-l-2 border-[#003399] pl-3">
                   <h3 className="font-bold text-black">{item.title}</h3>
                   <p className="text-[#003399] font-medium italic">{item.subtitle}</p>

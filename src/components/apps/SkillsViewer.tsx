@@ -2,10 +2,24 @@
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { skillGroups } from "@/data/skills";
+import { skillGroups as staticSkills } from "@/data/skills";
+import { skillService } from "@/data/services/skillService";
 import { Cpu, Database, Layout, Terminal, Wrench } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function SkillsViewer() {
+  const [skills, setSkills] = useState<any[]>(staticSkills);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await skillService.getAll();
+      if (data && data.length > 0) {
+        setSkills(data);
+      }
+    }
+    fetchData();
+  }, []);
+
   const getIcon = (title: string) => {
     switch (title) {
       case "Languages": return <Terminal className="w-8 h-8 text-[#2866CC]" />;
@@ -29,7 +43,7 @@ export function SkillsViewer() {
       <div className="flex-1 overflow-hidden bg-white">
         <ScrollArea className="h-full w-full">
           <div className="p-4 space-y-6">
-            {skillGroups.map((group, index) => (
+            {skills.map((group, index) => (
               <Card key={index} className="border-none shadow-none rounded-none bg-transparent">
                 <CardHeader className="p-0 mb-2">
                   <div className="flex items-center gap-2">
@@ -42,11 +56,11 @@ export function SkillsViewer() {
                 </CardHeader>
                 <CardContent className="p-0 pt-2">
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {group.skills.map((skill) => (
+                    {(Array.isArray(group.skills) ? group.skills : []).map((skill: string) => (
                       <div key={skill} className="flex items-center gap-2 group cursor-default">
                         {/* XP Drive Icon Look-alike */}
                         <div className="w-8 h-8 shrink-0">
-                           {getIcon(group.title)}
+                          {getIcon(group.title)}
                         </div>
                         <div className="flex flex-col">
                           <span className="font-bold text-black group-hover:underline">{skill}</span>
@@ -61,12 +75,10 @@ export function SkillsViewer() {
           </div>
         </ScrollArea>
       </div>
-      
+
       {/* Status Bar */}
       <div className="border-t border-[#D6D3CE] bg-[#ECE9D8] px-2 py-0.5 flex gap-4 text-black">
-         <span>{skillGroups.reduce((acc, g) => acc + g.skills.length, 0)} items</span>
-         <div className="w-[1px] bg-[#ACA899] h-full mx-1" />
-         <span>Total Capacity: Unlimited</span>
+        <span>{skills.reduce((acc, g) => acc + (g.skills?.length || 0), 0)} items</span>
       </div>
     </div>
   );
